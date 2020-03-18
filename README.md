@@ -1,5 +1,5 @@
 # Stringify
-A set of usefull string extensions
+A set of useful string extensions
 
 ## Usage
 

@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.homepage      = "https://github.com/NovichenkoAnton/Stringify"
   
   spec.license       = {:type => 'MIT', :file => 'LICENSE'}
-  spec.author        = { "Anton Novichenko" => "novichenko.anton@gmail.by" }
+  spec.author        = { "Anton Novichenko" => "novichenko.anton@gmail.com" }
   
   spec.platform      = :ios
   spec.ios.deployment_target = '8.0'

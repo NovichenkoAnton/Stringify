@@ -11,6 +11,10 @@ A set of usefull string extensions
 pod 'Stringify', '~> 0.1'
 ```
 
+## Future plans
+- [ ] Date formatting
+- [ ] Styling `NSMutableAttributedString`s with range
+
 ## Usage
 
 ### String

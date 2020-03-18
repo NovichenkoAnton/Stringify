@@ -6,6 +6,7 @@ Pod::Spec.new do |spec|
   spec.license       = {:type => 'MIT', :file => 'LICENSE'}
   spec.author        = { "Anton Novichenko" => "novichenko.anton@gmail.by" }
   spec.platform      = :ios
+  spec.swift_version = ['5.1']
   spec.source        = { :git => "https://github.com/NovichenkoAnton/Stringify.git", :tag => "#{spec.version}" }
   spec.source_files  = "Sources/*.swift"
   spec.framework     = "UIKit"

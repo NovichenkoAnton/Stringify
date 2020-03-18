@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
   spec.author        = { "Anton Novichenko" => "novichenko.anton@gmail.by" }
   
   spec.platform      = :ios
-  s.ios.deployment_target = '8.0'
+  spec.ios.deployment_target = '8.0'
   
   spec.swift_version = ['5.1']
   spec.source        = { :git => "https://github.com/NovichenkoAnton/Stringify.git", :tag => "#{spec.version}" }

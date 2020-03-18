@@ -1,6 +1,20 @@
 # Stringify
 A set of useful string extensions
 
+[![Version](https://img.shields.io/cocoapods/v/Stringify)](https://cocoapods.org/pods/Stringify)
+[![License](https://img.shields.io/cocoapods/l/Stringify)](https://raw.githubusercontent.com/NovichenkoAnton/Stringify/master/LICENSE)
+[![Platform](https://img.shields.io/cocoapods/p/Stringify)](https://cocoapods.org/pods/Stringify)
+
+## Installation
+
+```ruby
+pod 'Stringify', '~> 0.1'
+```
+
+## Future plans
+- [ ] Date formatting
+- [ ] Styling `NSMutableAttributedString`s with range
+
 ## Usage
 
 ### String
@@ -25,7 +39,7 @@ print(anotherAmount.toDouble()) //1200.1
 3. You can apply specific format for strings
 ```swift
 let sum = "1234"
-let formattedSum = sum.st.st.applyFormat(.sum())
+let formattedSum = sum.st.applyFormat(.sum())
 print(formattedSum) //"1 234,00"
 ```
 

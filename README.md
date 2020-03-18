@@ -12,7 +12,7 @@ let masked = try! cardNumber.maskSubstring(in: 6...13, with: "*")
 print(masked) //"123456********56"
 ```
 
-2. Convert `String` to `Double`. If `String` is not compatible with `Double` the function returns 0.00.
+2. Convert `String` to `Double`. If `String` is not compatible with `Double` the function will return 0.00.
 
 ``` swift
 let amount = "100,12"

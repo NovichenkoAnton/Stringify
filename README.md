@@ -41,14 +41,14 @@ enum Format {
 
 4. Validate a number of credit card by Luhn algorithm.
 
-5. Validate you sting with specific pattern
+5. Validate you string with specific pattern
 
 ```swift
 "https://www.google.com".validate(with: .website) //true
 ```
 
 ### NSMutableAttributedString
-1. You can append thwo attributed string with `+`
+1. You can append tho attributed strings with `+`
 
 ```swift
 let part1 = "123"
@@ -72,7 +72,7 @@ label.attributedText = string.attributed.applyAttributes([
 
 <img src="/Screenshots/screenshot2.png" width="200">
 
-3. Apply styles for strings
+3. Apply styles for string
 
 ```swift
 let sum = "1000,22"

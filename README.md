@@ -1,6 +1,16 @@
 # Stringify
 A set of usefull string extensions
 
+[![Version](https://img.shields.io/cocoapods/v/Stringify)](https://cocoapods.org/pods/Stringify)
+[![License](https://img.shields.io/cocoapods/l/Stringify)](https://cocoapods.org/pods/Alidade)
+[![Platform](https://img.shields.io/cocoapods/p/Stringify)](https://cocoapods.org/pods/Stringify)
+
+## Installation
+
+```ruby
+pod 'Stringify', '~> 0.1'
+```
+
 ## Usage
 
 ### String

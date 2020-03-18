@@ -36,6 +36,7 @@ final class StringifyTests: XCTestCase {
 		let double4 = "0,01"
 		let double5 = "test"
 		let double6 = ""
+		let double7 = "1 200,10"
 
 		let result1 = double1.toDouble()
 		XCTAssertEqual(result1, 123.11)
@@ -54,6 +55,9 @@ final class StringifyTests: XCTestCase {
 
 		let result6 = double6.toDouble()
 		XCTAssertEqual(result6, 0.00)
+
+		let result7 = double7.toDouble()
+		XCTAssertEqual(result7, 1200.11)
 	}
 
 	func testTriadFormat() {
@@ -248,6 +252,10 @@ final class StringifyTests: XCTestCase {
 
 	func testMaksSubstring() {
 		let string1 = "abcdefg"
+		let string2 = "1234567890123456"
+
+		let cardResult = try! string2.maskSubstring(in: 6...13, with: "*")
+		print(cardResult)
 
 		//CountabeRange
 		XCTAssertThrowsError(try string1.maskSubstring(in: 1..<10, with: "*")) { error in

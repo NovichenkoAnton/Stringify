@@ -31,6 +31,18 @@ public class Stringify<Base> {
 		formatter.maximumFractionDigits = 2
 		return formatter
 	}()
+
+	lazy var dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.timeZone = TimeZone.current
+		return dateFormatter
+	}()
+
+	lazy var iso8601Formatter: ISO8601DateFormatter = {
+		let isoFormatter = ISO8601DateFormatter()
+		isoFormatter.timeZone = TimeZone.current
+		return isoFormatter
+	}()
 }
 
 public extension StringifyCompatible {

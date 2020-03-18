@@ -15,13 +15,14 @@ extension String: StringifyCompatible {}
  - **outOfUpperIndex**: throws in `maskSubstring()` functions if your string has incorrect length for masking
  - **invalidCard**: throws in `validateCreditCard()` function if your string didn't pass through Luhn algorithm
  - **incorrectPattern**: throws in `validate()` function if your own pattern is not compatible with `NSRegularExpression`
+ - **incorrectDate**: throws in `convertDate()` function if input date incompatible with input date format
 */
 public enum StringifyError: Swift.Error, LocalizedError {
 	case outOfUpperIndex
 	case invalidCard
 	case incorrectPattern
+	case incorrectDate
 }
-
 
 public extension String {
 	/// String formats
@@ -332,6 +333,35 @@ public extension Stringify where Base == String {
 	func clean() -> String {
 		let formattedString = triadString(self.st, fractionDigits: 2)
 		return formattedString.trim().components(separatedBy: .whitespaces).joined(separator: "").replacingOccurrences(of: ",", with: ".")
+	}
+
+	/** Convert string between date formats
+
+		let time = "2019-11-22 12:33".st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
+		print(time) //"12:33"
+
+	- Parameters:
+		- fromFormat: Input date format
+		- toFormat: Result date format
+	- Throws: `StringifyError.incorrectDate`
+		input date incompatible with input date format
+	- Returns: Converted string with result format
+	*/
+	func convertDate(from fromFormat: String, to toFormat: String) throws -> String {
+		dateFormatter.dateFormat = fromFormat
+
+		let tmpDate = dateFormatter.date(from: self.st)
+		dateFormatter.dateFormat = toFormat
+
+		guard let date = tmpDate else {
+			throw StringifyError.incorrectDate
+		}
+
+		return dateFormatter.string(from: date)
+	}
+
+	var iso8601: Date? {
+		iso8601Formatter.date(from: self.st)
 	}
 }
 

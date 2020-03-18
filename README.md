@@ -1,5 +1,5 @@
 # Stringify
-Strings formatting
+A set of usefull string extensions
 
 ## Usage
 

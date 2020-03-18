@@ -1,6 +1,6 @@
 //
-//  ANTextTests.swift
-//  ANTextTests
+//  StringifyTests.swift
+//  StringifyTests
 //
 //  Created by Anton Novichenko on 3/12/20.
 //  Copyright © 2020 Anton Novichenko. All rights reserved.

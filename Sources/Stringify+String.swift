@@ -1,6 +1,6 @@
 //
-//  ANText+String.swift
-//  ANText
+//  Stringify+String.swift
+//  Stringify
 //
 //  Created by Anton Novichenko on 3/12/20.
 //  Copyright © 2020 Anton Novichenko. All rights reserved.
@@ -107,7 +107,7 @@ public extension String {
 	- Parameters:
 		- range: `CountableRange` for substring changes
 		- maskSymbol: Symbol which masks substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -136,7 +136,7 @@ public extension String {
 	- Parameters:
 		- range: `ClosedRange` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -165,7 +165,7 @@ public extension String {
 	- Parameters:
 		- range: `PartialRangeFrom` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -193,7 +193,7 @@ public extension String {
 	- Parameters:
 		- range: `PartialRangeThrough` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -221,7 +221,7 @@ public extension String {
 	- Parameters:
 		- range: `PartialRangeUpTo` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -239,7 +239,7 @@ public extension String {
 
 	/** Validate credit card with Luhn algorithm
 
-	- Throws: `ANTextError.invalidCard`
+	- Throws: `StringifyError.invalidCard`
 			if card didn't pass through Luhn algorithm
 	- Returns: `true` if card is valid
 	*/

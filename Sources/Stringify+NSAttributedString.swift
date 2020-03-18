@@ -1,6 +1,6 @@
 //
-//  ANText+NSAtrributedString.swift
-//  ANText
+//  Stringify+NSAtrributedString.swift
+//  Stringify
 //
 //  Created by Anton Novichenko on 3/16/20.
 //  Copyright © 2020 Anton Novichenko. All rights reserved.

@@ -7,8 +7,7 @@ Pod::Spec.new do |spec|
   spec.author        = { "Anton Novichenko" => "novichenko.anton@gmail.by" }
   spec.platform      = :ios
   spec.source        = { :git => "https://github.com/NovichenkoAnton/Stringify.git", :tag => "#{spec.version}" }
-  spec.source_files  = "Classes", "Classes/**/*.{h,m}"
-  spec.exclude_files = "Classes/Exclude"
+  spec.source_files  = "Sources/*.swift"
   spec.framework     = "UIKit"
   spec.requires_arc  = true
 end

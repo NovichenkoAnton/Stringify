@@ -57,7 +57,7 @@ final class StringifyTests: XCTestCase {
 		XCTAssertEqual(result6, 0.00)
 
 		let result7 = double7.toDouble()
-		XCTAssertEqual(result7, 1200.11)
+		XCTAssertEqual(result7, 1200.1)
 	}
 
 	func testTriadFormat() {

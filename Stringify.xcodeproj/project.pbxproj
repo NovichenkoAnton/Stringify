@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A1F8C22241A42B100A9295F /* Stringify.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1F8C20241A42B100A9295F /* Stringify.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1A1F8C2A241A47BA00A9295F /* Stringify+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F8C29241A47BA00A9295F /* Stringify+String.swift */; };
 		1A1F8C32241A487600A9295F /* StringifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F8C31241A487600A9295F /* StringifyTests.swift */; };
 		1A1F8C34241A487600A9295F /* Stringify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1F8C1D241A42B100A9295F /* Stringify.framework */; };
-		1A1F8C3B241A4AB900A9295F /* Stringify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F8C3A241A4AB900A9295F /* Stringify.swift */; };
-		1A1F8C82241F9A0300A9295F /* Luhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F8C81241F9A0300A9295F /* Luhn.swift */; };
-		1A1F8C8C242002F200A9295F /* Stringify+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F8C8B242002F200A9295F /* Stringify+NSAttributedString.swift */; };
+		1A88095224220B5000B4F9BC /* Stringify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88094C24220B5000B4F9BC /* Stringify.swift */; };
+		1A88095324220B5000B4F9BC /* Luhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88094D24220B5000B4F9BC /* Luhn.swift */; };
+		1A88095424220B5000B4F9BC /* Stringify+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88094E24220B5000B4F9BC /* Stringify+String.swift */; };
+		1A88095524220B5000B4F9BC /* Stringify.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A88094F24220B5000B4F9BC /* Stringify.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,15 +28,15 @@
 
 /* Begin PBXFileReference section */
 		1A1F8C1D241A42B100A9295F /* Stringify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stringify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A1F8C20241A42B100A9295F /* Stringify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stringify.h; sourceTree = "<group>"; };
-		1A1F8C21241A42B100A9295F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A1F8C29241A47BA00A9295F /* Stringify+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stringify+String.swift"; sourceTree = "<group>"; };
 		1A1F8C2F241A487600A9295F /* StringifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StringifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A1F8C31241A487600A9295F /* StringifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringifyTests.swift; sourceTree = "<group>"; };
 		1A1F8C33241A487600A9295F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A1F8C3A241A4AB900A9295F /* Stringify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stringify.swift; sourceTree = "<group>"; };
-		1A1F8C81241F9A0300A9295F /* Luhn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Luhn.swift; sourceTree = "<group>"; };
-		1A1F8C8B242002F200A9295F /* Stringify+NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stringify+NSAttributedString.swift"; sourceTree = "<group>"; };
+		1A88094C24220B5000B4F9BC /* Stringify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stringify.swift; sourceTree = "<group>"; };
+		1A88094D24220B5000B4F9BC /* Luhn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Luhn.swift; sourceTree = "<group>"; };
+		1A88094E24220B5000B4F9BC /* Stringify+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stringify+String.swift"; sourceTree = "<group>"; };
+		1A88094F24220B5000B4F9BC /* Stringify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stringify.h; sourceTree = "<group>"; };
+		1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stringify+NSAttributedString.swift"; sourceTree = "<group>"; };
+		1A88095124220B5000B4F9BC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 		1A1F8C13241A42B100A9295F = {
 			isa = PBXGroup;
 			children = (
-				1A1F8C1F241A42B100A9295F /* Stringify */,
+				1A88094B24220B5000B4F9BC /* Sources */,
 				1A1F8C30241A487600A9295F /* StringifyTests */,
 				1A1F8C1E241A42B100A9295F /* Products */,
 			);
@@ -76,27 +76,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1A1F8C1F241A42B100A9295F /* Stringify */ = {
-			isa = PBXGroup;
-			children = (
-				1A1F8C28241A47A200A9295F /* Classes */,
-				1A1F8C20241A42B100A9295F /* Stringify.h */,
-				1A1F8C21241A42B100A9295F /* Info.plist */,
-			);
-			path = Stringify;
-			sourceTree = "<group>";
-		};
-		1A1F8C28241A47A200A9295F /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				1A1F8C3A241A4AB900A9295F /* Stringify.swift */,
-				1A1F8C29241A47BA00A9295F /* Stringify+String.swift */,
-				1A1F8C8B242002F200A9295F /* Stringify+NSAttributedString.swift */,
-				1A1F8C81241F9A0300A9295F /* Luhn.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		1A1F8C30241A487600A9295F /* StringifyTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +85,27 @@
 			path = StringifyTests;
 			sourceTree = "<group>";
 		};
+		1A88094B24220B5000B4F9BC /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1A88095824220B5D00B4F9BC /* Stringify */,
+				1A88094F24220B5000B4F9BC /* Stringify.h */,
+				1A88095124220B5000B4F9BC /* Info.plist */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1A88095824220B5D00B4F9BC /* Stringify */ = {
+			isa = PBXGroup;
+			children = (
+				1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */,
+				1A88094E24220B5000B4F9BC /* Stringify+String.swift */,
+				1A88094D24220B5000B4F9BC /* Luhn.swift */,
+				1A88094C24220B5000B4F9BC /* Stringify.swift */,
+			);
+			name = Stringify;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -113,7 +113,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A1F8C22241A42B100A9295F /* Stringify.h in Headers */,
+				1A88095524220B5000B4F9BC /* Stringify.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,10 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A1F8C2A241A47BA00A9295F /* Stringify+String.swift in Sources */,
-				1A1F8C8C242002F200A9295F /* Stringify+NSAttributedString.swift in Sources */,
-				1A1F8C3B241A4AB900A9295F /* Stringify.swift in Sources */,
-				1A1F8C82241F9A0300A9295F /* Luhn.swift in Sources */,
+				1A88095224220B5000B4F9BC /* Stringify.swift in Sources */,
+				1A88095324220B5000B4F9BC /* Luhn.swift in Sources */,
+				1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */,
+				1A88095424220B5000B4F9BC /* Stringify+String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +373,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Stringify/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -402,7 +402,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Stringify/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -424,7 +424,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AEN52N4HBU;
-				INFOPLIST_FILE = Stringify/Info.plist;
+				INFOPLIST_FILE = StringifyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -442,7 +442,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AEN52N4HBU;
-				INFOPLIST_FILE = Stringify/Info.plist;
+				INFOPLIST_FILE = StringifyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

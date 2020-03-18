@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 //! Project version number for ANText.
-FOUNDATION_EXPORT double ANTextVersionNumber;
+FOUNDATION_EXPORT double StringifyVersionNumber;
 
 //! Project version string for ANText.
-FOUNDATION_EXPORT const unsigned char ANTextVersionString[];
+FOUNDATION_EXPORT const unsigned char StringifyVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ANText/PublicHeader.h>
 

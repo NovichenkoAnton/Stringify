@@ -34,14 +34,10 @@ public class Stringify<Base> {
 
 	lazy var dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
+		dateFormatter.calendar = Calendar(identifier: .iso8601)
 		dateFormatter.timeZone = TimeZone.current
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 		return dateFormatter
-	}()
-
-	lazy var iso8601Formatter: ISO8601DateFormatter = {
-		let isoFormatter = ISO8601DateFormatter()
-		isoFormatter.timeZone = TimeZone.current
-		return isoFormatter
 	}()
 }
 

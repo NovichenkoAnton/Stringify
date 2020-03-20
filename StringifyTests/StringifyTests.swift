@@ -396,20 +396,17 @@ final class StringifyTests: XCTestCase {
 	}
 
 	func testConvertDates() {
-		let date = "2019-11-22 12:33"
+		let dateTime1 = "2019-11-22 13:33"
+		let dateTime2 = "2019-11-22 13:33"
 
-		let result = try! date.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
-		XCTAssertEqual(result, "12:33")
+		let result1 = try! dateTime1.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm")
+		XCTAssertEqual(result1, "1:33")
 
-		XCTAssertThrowsError(try date.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm")) { error in
+		let result2 = try! dateTime2.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
+		XCTAssertEqual(result2, "13:33")
+
+		XCTAssertThrowsError(try dateTime1.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm")) { error in
 			XCTAssertEqual(error as! StringifyError, StringifyError.incorrectDate)
 		}
-	}
-
-	func testISO8601Date() {
-		let date = "2020-03-18T08:57:18+00:00"
-
-		let convertedDate = date.st.iso8601
-		print(convertedDate)
 	}
 }

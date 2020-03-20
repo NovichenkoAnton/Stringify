@@ -27,7 +27,7 @@ public enum StringifyError: Swift.Error, LocalizedError {
 public extension String {
 	/// String formats
 	enum Format {
-		case sum(minFractionDigist: Int = 2)
+		case sum(fractionDigits: Int = 2)
 		case creditCard
 		case iban
 		case custom(formatter: NumberFormatter)
@@ -328,10 +328,11 @@ public extension Stringify where Base == String {
 		let anotherString = "1 234".st.clean()
 		print(anotherString) //"1234.00"
 
+	- Parameter fractionDigits: Number of fraction digits after seaprator. Default value is 2
 	- Returns: Formatted string without inner whitespaces and with '.' separator.
 	*/
-	func clean() -> String {
-		let formattedString = triadString(self.st, fractionDigits: 2)
+	func clean(fractionDigits: Int = 2) -> String {
+		let formattedString = triadString(self.st, fractionDigits: fractionDigits)
 		return formattedString.trim().components(separatedBy: .whitespaces).joined(separator: "").replacingOccurrences(of: ",", with: ".")
 	}
 
@@ -359,10 +360,6 @@ public extension Stringify where Base == String {
 
 		return dateFormatter.string(from: date)
 	}
-
-	var iso8601: Date? {
-		iso8601Formatter.date(from: self.st)
-	}
 }
 
 private extension Stringify where Base == String {
@@ -375,6 +372,7 @@ private extension Stringify where Base == String {
 	/// - Parameter string: String for formatting
 	func triadString(_ string: String, fractionDigits: Int) -> String {
 		triadNumberFormatter.minimumFractionDigits = fractionDigits
+		triadNumberFormatter.maximumFractionDigits = fractionDigits
 		return triadNumberFormatter.string(from: NSNumber(value: string.toDouble())) ?? Stringify.defaultValue
 	}
 

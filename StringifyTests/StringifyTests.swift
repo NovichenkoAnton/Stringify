@@ -99,7 +99,7 @@ final class StringifyTests: XCTestCase {
 		let result9 = string9.st.applyFormat(.sum())
 		XCTAssertEqual(result9, "0,00")
 
-		let result11 = string9.st.applyFormat(.sum(minFractionDigist: 0))
+		let result11 = string9.st.applyFormat(.sum(fractionDigits: 0))
 		XCTAssertEqual(result11, "0")
 
 		let result10 = string10.st.applyFormat(.sum())

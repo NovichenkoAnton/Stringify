@@ -14,6 +14,7 @@ pod 'Stringify', '~> 0.1'
 ## Future plans
 - [ ] Date formatting
 - [ ] Styling `NSMutableAttributedString`s with a range
+- [ ] `StringifyTextField` with text formatting
 
 ## Usage
 

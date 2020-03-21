@@ -62,6 +62,22 @@ public extension String {
 		return numericString
 	}
 
+	/// Computed property which returns `true` if a symbol is a decimal digit
+	private var isNumeric: Bool {
+		CharacterSet(charactersIn: self).isSubset(of: CharacterSet.decimalDigits)
+	}
+
+	/**
+	Detect if the string contains only numeric symbols
+
+	- Returns: `true` if the string contains only decimal digits
+	*/
+	func hasOnlyDigits() -> Bool {
+		guard !isEmpty else { return false }
+
+		return !contains(where: { !$0.isNumber })
+	}
+
 	/// Remove whitespaces and new lines from both ends of `String`
 	func trim() -> String {
 		self.trimmingCharacters(in: .whitespacesAndNewlines)

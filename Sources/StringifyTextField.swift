@@ -12,12 +12,12 @@ public class StringifyTextField: UITextField {
 	/**
 	Possible text types for `StringifyTextField`
 
-    - **sum**: formatted text with sum type, for example, "1 200,99"
+    - **amount**: formatted text with sum type, for example, "1 200,99"
 	- **creditCard**: formatted text compatible with credit cards, for example, "1234 5678 9012 3456"
 	- **IBAN**: formatted text compatible with IBAN, for example, "BY12 BLBB 1234 5678 0000 1234 5678"
 	*/
 	private enum TextType: UInt {
-		case sum = 0
+		case amount = 0
 		case creditCard = 1
 		case IBAN = 2
 		case none = 3
@@ -45,7 +45,7 @@ public class StringifyTextField: UITextField {
 
 	// MARK: - Private properties
 
-	private var _textType: TextType = .sum
+	private var _textType: TextType = .amount
 
 	private lazy var numberFormatter = NumberFormatter()
 
@@ -54,8 +54,10 @@ public class StringifyTextField: UITextField {
 	///Computed property for getting clean value (without inner whitespaces)
 	public var associatedValue: String {
 		switch _textType {
-		case .sum:
+		case .amount:
 			return cleanValueForSum()
+		case .creditCard:
+			return cleanValueForCard()
 		default:
 			return text!
 		}
@@ -72,7 +74,7 @@ public class StringifyTextField: UITextField {
 
 	private func configure() {
 		switch _textType {
-		case .sum:
+		case .amount:
 			numberFormatter.groupingSeparator = " "
 			numberFormatter.numberStyle = .decimal
 
@@ -104,7 +106,7 @@ public class StringifyTextField: UITextField {
 
 	public override func closestPosition(to point: CGPoint) -> UITextPosition? {
 		switch _textType {
-		case .sum:
+		case .amount:
 			return position(from: beginningOfDocument, offset: self.text?.count ?? 0)
 		default:
 			return super.closestPosition(to: point)
@@ -113,7 +115,7 @@ public class StringifyTextField: UITextField {
 
 	public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
 		switch _textType {
-		case .sum:
+		case .amount:
 			if action == #selector(paste(_:)) || action == #selector(cut(_:)) {
 				return false
 			}
@@ -123,12 +125,27 @@ public class StringifyTextField: UITextField {
 		}
 	}
 
+	public override func paste(_ sender: Any?) {
+		switch _textType {
+		case .creditCard:
+			if UIPasteboard.general.hasStrings, var pastedString = UIPasteboard.general.string {
+				pastedString = pastedString.replacingOccurrences(of: " ", with: "")
+
+				if pastedString.hasOnlyDigits(), pastedString.count <= 16 {
+					self.text = pastedString.separate(every: 4, with: " ")
+				}
+			}
+		default:
+			super.paste(sender)
+		}
+	}
+
 	// MARK: - Events
 	@objc func textFieldDidBeginEditing() {
 		guard let text = text, !text.isEmpty else { return }
 
 		switch _textType {
-		case .sum:
+		case .amount:
 			applySumFormat()
 		default:
 			break
@@ -141,7 +158,7 @@ public class StringifyTextField: UITextField {
 		guard let text = text, !text.isEmpty else { return }
 
 		switch _textType {
-		case .sum:
+		case .amount:
 			sumFormatEnding()
 		default:
 			break
@@ -149,7 +166,7 @@ public class StringifyTextField: UITextField {
 	}
 }
 
-// MARK: - Private extension (.sum format)
+// MARK: - Private extension (.amount format)
 private extension StringifyTextField {
 	enum InputedCharacter {
 		case number
@@ -180,7 +197,7 @@ private extension StringifyTextField {
 		}
 	}
 
-	func shouldChangeSumText(in range: NSRange, with string: String, for text: String) -> Bool {
+	func shouldChangeSumText(in range: NSRange, with string: String, and text: String) -> Bool {
 		//Removing characters
 		if string.isEmpty {
 			if text.count > 1 {
@@ -233,18 +250,45 @@ private extension StringifyTextField {
 	}
 }
 
+
+private extension StringifyTextField {
+	func cleanValueForCard() -> String {
+		return self.text!.replacingOccurrences(of: " ", with: "")
+	}
+
+	func shouldChangeCardText(in range: NSRange, with string: String, and text: String) -> Bool {
+		if string.isEmpty {
+			return true
+		}
+
+		let cursorLocation = position(from: beginningOfDocument, offset: (range.location + NSString(string: string).length))
+
+		let possibleText = (text as NSString).replacingCharacters(in: range, with: string)
+
+		if possibleText.count <= 19 {
+			self.text = possibleText.replacingOccurrences(of: " ", with: "").separate(every: 4, with: " ")
+		}
+
+		if let location = cursorLocation {
+			selectedTextRange = textRange(from: location, to: location)
+		}
+
+		return false
+	}
+}
+
 // MARK: - UITextFieldDelegate
 extension StringifyTextField: UITextFieldDelegate {
 	public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 		switch _textType {
-		case .sum:
+		case .amount:
 			guard let text = textField.text else { return false }
 
-			return shouldChangeSumText(in: range, with: string, for: text)
+			return shouldChangeSumText(in: range, with: string, and: text)
 		case .creditCard:
 			guard let text = textField.text else { return false }
 
-			return true
+			return shouldChangeCardText(in: range, with: string, and: text)
 		default:
 			return true
 		}

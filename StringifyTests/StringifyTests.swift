@@ -409,4 +409,16 @@ final class StringifyTests: XCTestCase {
 			XCTAssertEqual(error as! StringifyError, StringifyError.incorrectDate)
 		}
 	}
+
+	func testHasOnlyDigits() {
+		let string1 = "123456"
+		let string2 = "123a56"
+		let string3 = " "
+		let string4 = ""
+
+		XCTAssertTrue(string1.hasOnlyDigits())
+		XCTAssertFalse(string2.hasOnlyDigits())
+		XCTAssertFalse(string3.hasOnlyDigits())
+		XCTAssertFalse(string4.hasOnlyDigits())
+	}
 }

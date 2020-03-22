@@ -149,6 +149,7 @@ final class StringifyTests: XCTestCase {
 	func testLuhnAlgo() {
 		let string1 = "123"
 		let string2 = "79927398713"
+		let string3 = "5578 8549 6021 0681"
 
 		XCTAssertThrowsError(try string1.validateCreditCard()) { error in
 			XCTAssertEqual(error as! StringifyError, StringifyError.invalidCard)
@@ -156,6 +157,9 @@ final class StringifyTests: XCTestCase {
 
 		let result2 = try! string2.validateCreditCard()
 		XCTAssertTrue(result2)
+
+		let result3 = try! string3.validateCreditCard()
+		XCTAssertTrue(result3)
 	}
 
 	func testCardFormat() {

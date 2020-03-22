@@ -256,7 +256,9 @@ public extension String {
 	- Returns: `true` if card is valid
 	*/
 	func validateCreditCard() throws -> Bool {
-		guard luhnAlgorithm(self) else {
+		let preparedString = self.trim().components(separatedBy: .whitespaces).joined(separator: "")
+
+		guard luhnAlgorithm(preparedString) else {
 			throw StringifyError.invalidCard
 		}
 

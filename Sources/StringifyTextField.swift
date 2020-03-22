@@ -57,7 +57,9 @@ public class StringifyTextField: UITextField {
 		case .amount:
 			return cleanValueForSum()
 		case .creditCard:
-			return cleanValueForCard()
+			return cleanValue()
+		case .IBAN:
+			return cleanValue().uppercased()
 		default:
 			return text!
 		}
@@ -91,6 +93,8 @@ public class StringifyTextField: UITextField {
 		case .IBAN:
 			keyboardType = .asciiCapable
 			autocapitalizationType = .allCharacters
+			autocorrectionType = .no
+			returnKeyType = .done
 		case .none:
 			keyboardType = .default
 		}
@@ -126,14 +130,21 @@ public class StringifyTextField: UITextField {
 	}
 
 	public override func paste(_ sender: Any?) {
+		guard UIPasteboard.general.hasStrings, var pastedString = UIPasteboard.general.string else {
+			super.paste(sender)
+			return
+		}
+
+		pastedString = pastedString.replacingOccurrences(of: " ", with: "")
+
 		switch _textType {
 		case .creditCard:
-			if UIPasteboard.general.hasStrings, var pastedString = UIPasteboard.general.string {
-				pastedString = pastedString.replacingOccurrences(of: " ", with: "")
-
-				if pastedString.hasOnlyDigits(), pastedString.count <= 16 {
-					self.text = pastedString.separate(every: 4, with: " ")
-				}
+			if pastedString.hasOnlyDigits(), pastedString.count <= 16 {
+				self.text = pastedString.separate(every: 4, with: " ")
+			}
+		case .IBAN:
+			if pastedString.count <= 34 {
+				self.text = pastedString.separate(every: 4, with: " ")
 			}
 		default:
 			super.paste(sender)
@@ -252,11 +263,11 @@ private extension StringifyTextField {
 
 
 private extension StringifyTextField {
-	func cleanValueForCard() -> String {
+	func cleanValue() -> String {
 		return self.text!.replacingOccurrences(of: " ", with: "")
 	}
 
-	func shouldChangeCardText(in range: NSRange, with string: String, and text: String) -> Bool {
+	func shouldChangeText(in range: NSRange, with string: String, and text: String, with maxLength: Int) -> Bool {
 		if string.isEmpty {
 			return true
 		}
@@ -265,7 +276,7 @@ private extension StringifyTextField {
 
 		let possibleText = (text as NSString).replacingCharacters(in: range, with: string)
 
-		if possibleText.count <= 19 {
+		if possibleText.count <= maxLength {
 			self.text = possibleText.replacingOccurrences(of: " ", with: "").separate(every: 4, with: " ")
 		}
 
@@ -288,9 +299,17 @@ extension StringifyTextField: UITextFieldDelegate {
 		case .creditCard:
 			guard let text = textField.text else { return false }
 
-			return shouldChangeCardText(in: range, with: string, and: text)
+			return shouldChangeText(in: range, with: string, and: text, with: 19)
+		case .IBAN:
+			guard let text = textField.text else { return false }
+
+			return shouldChangeText(in: range, with: string, and: text, with: 42)
 		default:
 			return true
 		}
+	}
+
+	public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		return resignFirstResponder()
 	}
 }

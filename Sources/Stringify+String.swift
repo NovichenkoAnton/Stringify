@@ -62,11 +62,6 @@ public extension String {
 		return numericString
 	}
 
-	/// Computed property which returns `true` if a symbol is a decimal digit
-	private var isNumeric: Bool {
-		CharacterSet(charactersIn: self).isSubset(of: CharacterSet.decimalDigits)
-	}
-
 	/**
 	Detect if the string contains only numeric symbols
 

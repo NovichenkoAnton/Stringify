@@ -1,6 +1,6 @@
 //
-//  ANText+String.swift
-//  ANText
+//  Stringify+String.swift
+//  Stringify
 //
 //  Created by Anton Novichenko on 3/12/20.
 //  Copyright © 2020 Anton Novichenko. All rights reserved.
@@ -15,25 +15,26 @@ extension String: StringifyCompatible {}
  - **outOfUpperIndex**: throws in `maskSubstring()` functions if your string has incorrect length for masking
  - **invalidCard**: throws in `validateCreditCard()` function if your string didn't pass through Luhn algorithm
  - **incorrectPattern**: throws in `validate()` function if your own pattern is not compatible with `NSRegularExpression`
+ - **incorrectDate**: throws in `convertDate()` function if input date incompatible with input date format
 */
 public enum StringifyError: Swift.Error, LocalizedError {
 	case outOfUpperIndex
 	case invalidCard
 	case incorrectPattern
+	case incorrectDate
 }
-
 
 public extension String {
 	/// String formats
 	enum Format {
-		case sum(minFractionDigist: Int = 2)
+		case sum(fractionDigits: Int = 2)
 		case creditCard
 		case iban
 		case custom(formatter: NumberFormatter)
 	}
 
 	/// Pattern for validating string
-	enum Pattern {
+	enum RegExpPattern {
 		case email
 		case phoneBY
 		case website
@@ -46,7 +47,7 @@ public extension String {
 	}
 
 	/// Returns double value of string,
-	/// if a value is not compatible to `Double` - return 0.00
+	/// if a value is not compatible with `Double` - return 0.00
 	func toDouble() -> Double {
 		var mutatingString = self.trim().components(separatedBy: .whitespaces).joined(separator: "")
 
@@ -59,6 +60,17 @@ public extension String {
 		}
 
 		return numericString
+	}
+
+	/**
+	Detect if the string contains only numeric symbols
+
+	- Returns: `true` if the string contains only decimal digits
+	*/
+	func hasOnlyDigits() -> Bool {
+		guard !isEmpty else { return false }
+
+		return !contains(where: { !$0.isNumber })
 	}
 
 	/// Remove whitespaces and new lines from both ends of `String`
@@ -90,8 +102,8 @@ public extension String {
 			return CGSize(width: width, height: .zero)
 		}
 
-		let constrantRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-		let boundingBox = self.boundingRect(with: constrantRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
+		let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+		let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
 		return boundingBox.size
 	}
 
@@ -107,7 +119,7 @@ public extension String {
 	- Parameters:
 		- range: `CountableRange` for substring changes
 		- maskSymbol: Symbol which masks substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -136,7 +148,7 @@ public extension String {
 	- Parameters:
 		- range: `ClosedRange` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -165,8 +177,8 @@ public extension String {
 	- Parameters:
 		- range: `PartialRangeFrom` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
-			if string length is more than upper bound of range
+	- Throws: `StringifyError.outOfUpperIndex`
+			if lower bound of range more than or equal a length of the string
 	- Returns: Masked string
 	*/
 	func maskSubstring(in range: PartialRangeFrom<Int>, with maskSymbol: Character) throws -> String {
@@ -193,7 +205,7 @@ public extension String {
 	- Parameters:
 		- range: `PartialRangeThrough` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -221,7 +233,7 @@ public extension String {
 	- Parameters:
 		- range: `PartialRangeUpTo` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `ANTextError.outOfUpperIndex`
+	- Throws: `StringifyError.outOfUpperIndex`
 			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
@@ -239,12 +251,14 @@ public extension String {
 
 	/** Validate credit card with Luhn algorithm
 
-	- Throws: `ANTextError.invalidCard`
+	- Throws: `StringifyError.invalidCard`
 			if card didn't pass through Luhn algorithm
 	- Returns: `true` if card is valid
 	*/
 	func validateCreditCard() throws -> Bool {
-		guard luhnAlgorithm(self) else {
+		let preparedString = self.trim().components(separatedBy: .whitespaces).joined(separator: "")
+
+		guard luhnAlgorithm(preparedString) else {
 			throw StringifyError.invalidCard
 		}
 
@@ -254,10 +268,10 @@ public extension String {
 	/** Validate the string with chosen pattern
 
 	- Parameters:
-		- pattern: Prepared `Pattern` for validating
+		- pattern: Prepared `RegExpPattern` for validating
 		- options: The regular expression options that are applied to the expression during matching
 	*/
-	func validate(with pattern: Pattern, for options: NSRegularExpression.Options = [.caseInsensitive]) throws -> Bool {
+	func validate(with pattern: RegExpPattern, for options: NSRegularExpression.Options = [.caseInsensitive]) throws -> Bool {
 		let regularExpression: NSRegularExpression
 		do {
 			regularExpression = try NSRegularExpression(pattern: invokeRegularExpression(for: pattern), options: options)
@@ -271,10 +285,10 @@ public extension String {
 
 	/** Fetch regular expression for specific pattern
 
-	- Parameter pattern: `Pattern`
+	- Parameter pattern: `RegExpPattern`
 	- Returns: Regular expression
 	*/
-	private func invokeRegularExpression(for pattern: Pattern) -> String {
+	private func invokeRegularExpression(for pattern: RegExpPattern) -> String {
 		switch pattern {
 		case .email:
 			return "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
@@ -327,11 +341,37 @@ public extension Stringify where Base == String {
 		let anotherString = "1 234".st.clean()
 		print(anotherString) //"1234.00"
 
+	- Parameter fractionDigits: Number of fraction digits after seaprator. Default value is 2
 	- Returns: Formatted string without inner whitespaces and with '.' separator.
 	*/
-	func clean() -> String {
-		let formattedString = triadString(self.st, fractionDigits: 2)
+	func clean(fractionDigits: Int = 2) -> String {
+		let formattedString = triadString(self.st, fractionDigits: fractionDigits)
 		return formattedString.trim().components(separatedBy: .whitespaces).joined(separator: "").replacingOccurrences(of: ",", with: ".")
+	}
+
+	/** Convert string between date formats
+
+		let time = "2019-11-22 12:33".st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
+		print(time) //"12:33"
+
+	- Parameters:
+		- fromFormat: Input date format
+		- toFormat: Result date format
+	- Throws: `StringifyError.incorrectDate`
+		input date incompatible with input date format
+	- Returns: Converted string with result format
+	*/
+	func convertDate(from fromFormat: String, to toFormat: String) throws -> String {
+		dateFormatter.dateFormat = fromFormat
+
+		let tmpDate = dateFormatter.date(from: self.st)
+		dateFormatter.dateFormat = toFormat
+
+		guard let date = tmpDate else {
+			throw StringifyError.incorrectDate
+		}
+
+		return dateFormatter.string(from: date)
 	}
 }
 
@@ -345,6 +385,7 @@ private extension Stringify where Base == String {
 	/// - Parameter string: String for formatting
 	func triadString(_ string: String, fractionDigits: Int) -> String {
 		triadNumberFormatter.minimumFractionDigits = fractionDigits
+		triadNumberFormatter.maximumFractionDigits = fractionDigits
 		return triadNumberFormatter.string(from: NSNumber(value: string.toDouble())) ?? Stringify.defaultValue
 	}
 

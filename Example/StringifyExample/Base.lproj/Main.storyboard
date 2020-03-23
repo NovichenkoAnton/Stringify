@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="StringifyExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="StringifyTextField" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4e2-gO-waW" customClass="StringifyTextField" customModule="Stringify">
+                                <rect key="frame" x="20" y="138" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="decimal" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxIntegerDigits">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="inputTextType">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zn7-BU-V90">
+                                <rect key="frame" x="20" y="238.5" width="374" height="32"/>
+                                <segments>
+                                    <segment title="Amount"/>
+                                    <segment title="Credit card"/>
+                                    <segment title="IBAN"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangeSegment:" destination="BYZ-38-t0r" eventType="valueChanged" id="Qrc-1y-RdL"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-k3-sVX">
+                                <rect key="frame" x="20" y="202" width="374" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Currency" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nrf-kn-q50">
+                                <rect key="frame" x="20" y="346" width="120" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="R8L-96-YKx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="g5u-cG-cHn"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency mark" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2I-Qp-Q0Z">
+                                <rect key="frame" x="20" y="309.5" width="374" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA2-Nz-LKi">
+                                <rect key="frame" x="20" y="412" width="179" height="30"/>
+                                <state key="normal" title="Get textfield value"/>
+                                <connections>
+                                    <action selector="getTextFieldValue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a4M-s4-lv8"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Textfield value is:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDP-rH-tmI">
+                                <rect key="frame" x="20" y="459" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quH-ey-WIO">
+                                <rect key="frame" x="215" y="412" width="179" height="30"/>
+                                <state key="normal" title="Copy card number"/>
+                                <connections>
+                                    <action selector="copyCardNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rRH-s5-OSh"/>
+                                </connections>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0XE-1Y-BNF">
+                                <rect key="frame" x="347" y="347.5" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="47" id="lwx-wA-T6y"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="changeDecimal:" destination="BYZ-38-t0r" eventType="valueChanged" id="Uoh-7L-wER"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is decimal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-XJ-Zgl">
+                                <rect key="frame" x="262" y="352.5" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="c2I-Qp-Q0Z" firstAttribute="top" secondItem="Zn7-BU-V90" secondAttribute="bottom" constant="40" id="27t-E1-Gha"/>
+                            <constraint firstItem="0XE-1Y-BNF" firstAttribute="centerY" secondItem="nrf-kn-q50" secondAttribute="centerY" id="2N2-tT-Sl3"/>
+                            <constraint firstItem="4e2-gO-waW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="3Mx-TZ-lbx"/>
+                            <constraint firstItem="quH-ey-WIO" firstAttribute="trailing" secondItem="c2I-Qp-Q0Z" secondAttribute="trailing" id="3hu-YO-PNb"/>
+                            <constraint firstItem="0XE-1Y-BNF" firstAttribute="trailing" secondItem="Zn7-BU-V90" secondAttribute="trailing" id="4RV-Ki-QtK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4e2-gO-waW" secondAttribute="trailing" constant="20" id="5mM-Zj-HXO"/>
+                            <constraint firstItem="c2I-Qp-Q0Z" firstAttribute="leading" secondItem="Zn7-BU-V90" secondAttribute="leading" id="8vo-Sc-D4Q"/>
+                            <constraint firstItem="Dsh-k3-sVX" firstAttribute="top" secondItem="4e2-gO-waW" secondAttribute="bottom" constant="30" id="9rl-GW-twj"/>
+                            <constraint firstItem="LDP-rH-tmI" firstAttribute="trailing" secondItem="quH-ey-WIO" secondAttribute="trailing" id="BqO-hh-pHa"/>
+                            <constraint firstItem="quH-ey-WIO" firstAttribute="centerY" secondItem="rA2-Nz-LKi" secondAttribute="centerY" id="HGO-gX-DLG"/>
+                            <constraint firstItem="LDP-rH-tmI" firstAttribute="leading" secondItem="rA2-Nz-LKi" secondAttribute="leading" id="ITV-uY-VfW"/>
+                            <constraint firstItem="4e2-gO-waW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="L03-Pj-Y6a"/>
+                            <constraint firstItem="Dsh-k3-sVX" firstAttribute="trailing" secondItem="4e2-gO-waW" secondAttribute="trailing" id="N2y-nQ-euw"/>
+                            <constraint firstItem="Zn7-BU-V90" firstAttribute="leading" secondItem="Dsh-k3-sVX" secondAttribute="leading" id="NkH-U2-PQP"/>
+                            <constraint firstItem="xWh-XJ-Zgl" firstAttribute="centerY" secondItem="0XE-1Y-BNF" secondAttribute="centerY" id="PcN-PP-gg7"/>
+                            <constraint firstItem="Dsh-k3-sVX" firstAttribute="leading" secondItem="4e2-gO-waW" secondAttribute="leading" id="aBN-Lr-ARs"/>
+                            <constraint firstItem="rA2-Nz-LKi" firstAttribute="top" secondItem="nrf-kn-q50" secondAttribute="bottom" constant="32" id="b98-bj-lDe"/>
+                            <constraint firstItem="nrf-kn-q50" firstAttribute="top" secondItem="c2I-Qp-Q0Z" secondAttribute="bottom" constant="10" id="cP2-gR-4db"/>
+                            <constraint firstItem="Zn7-BU-V90" firstAttribute="top" secondItem="Dsh-k3-sVX" secondAttribute="bottom" constant="10" id="dwH-Ys-Ybo"/>
+                            <constraint firstItem="c2I-Qp-Q0Z" firstAttribute="trailing" secondItem="Zn7-BU-V90" secondAttribute="trailing" id="fVM-W8-cxy"/>
+                            <constraint firstItem="Zn7-BU-V90" firstAttribute="trailing" secondItem="Dsh-k3-sVX" secondAttribute="trailing" id="fZq-pg-5E2"/>
+                            <constraint firstItem="quH-ey-WIO" firstAttribute="width" secondItem="rA2-Nz-LKi" secondAttribute="width" id="ify-i3-VPJ"/>
+                            <constraint firstItem="nrf-kn-q50" firstAttribute="leading" secondItem="c2I-Qp-Q0Z" secondAttribute="leading" id="nAV-7n-HeN"/>
+                            <constraint firstItem="rA2-Nz-LKi" firstAttribute="leading" secondItem="nrf-kn-q50" secondAttribute="leading" id="rlx-G1-GPB"/>
+                            <constraint firstItem="quH-ey-WIO" firstAttribute="leading" secondItem="rA2-Nz-LKi" secondAttribute="trailing" constant="16" id="tcO-go-Ulu"/>
+                            <constraint firstItem="LDP-rH-tmI" firstAttribute="top" secondItem="rA2-Nz-LKi" secondAttribute="bottom" constant="17" id="uBS-o1-ffG"/>
+                            <constraint firstItem="0XE-1Y-BNF" firstAttribute="leading" secondItem="xWh-XJ-Zgl" secondAttribute="trailing" constant="8" id="uSo-u1-gMp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="currencyTextField" destination="nrf-kn-q50" id="96Q-Yg-MdD"/>
+                        <outlet property="decimalSwitcher" destination="0XE-1Y-BNF" id="d72-yJ-Rd2"/>
+                        <outlet property="segmentedControl" destination="Zn7-BU-V90" id="Mmc-2E-emS"/>
+                        <outlet property="stringifyTextField" destination="4e2-gO-waW" id="6Z2-dN-rUK"/>
+                        <outlet property="valueLabel" destination="LDP-rH-tmI" id="swc-tN-9cO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>

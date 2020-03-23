@@ -1,6 +1,6 @@
 //
-//  ANText.swift
-//  ANText
+//  Stringify.swift
+//  Stringify
 //
 //  Created by Anton Novichenko on 3/12/20.
 //  Copyright © 2020 Anton Novichenko. All rights reserved.
@@ -30,6 +30,14 @@ public class Stringify<Base> {
 		formatter.minimumFractionDigits = 2
 		formatter.maximumFractionDigits = 2
 		return formatter
+	}()
+
+	lazy var dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.calendar = Calendar(identifier: .iso8601)
+		dateFormatter.timeZone = TimeZone.current
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+		return dateFormatter
 	}()
 }
 

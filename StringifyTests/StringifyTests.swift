@@ -1,6 +1,6 @@
 //
-//  ANTextTests.swift
-//  ANTextTests
+//  StringifyTests.swift
+//  StringifyTests
 //
 //  Created by Anton Novichenko on 3/12/20.
 //  Copyright © 2020 Anton Novichenko. All rights reserved.
@@ -99,7 +99,7 @@ final class StringifyTests: XCTestCase {
 		let result9 = string9.st.applyFormat(.sum())
 		XCTAssertEqual(result9, "0,00")
 
-		let result11 = string9.st.applyFormat(.sum(minFractionDigist: 0))
+		let result11 = string9.st.applyFormat(.sum(fractionDigits: 0))
 		XCTAssertEqual(result11, "0")
 
 		let result10 = string10.st.applyFormat(.sum())
@@ -149,6 +149,7 @@ final class StringifyTests: XCTestCase {
 	func testLuhnAlgo() {
 		let string1 = "123"
 		let string2 = "79927398713"
+		let string3 = "5578 8549 6021 0681"
 
 		XCTAssertThrowsError(try string1.validateCreditCard()) { error in
 			XCTAssertEqual(error as! StringifyError, StringifyError.invalidCard)
@@ -156,6 +157,9 @@ final class StringifyTests: XCTestCase {
 
 		let result2 = try! string2.validateCreditCard()
 		XCTAssertTrue(result2)
+
+		let result3 = try! string3.validateCreditCard()
+		XCTAssertTrue(result3)
 	}
 
 	func testCardFormat() {
@@ -393,5 +397,32 @@ final class StringifyTests: XCTestCase {
 
 		let result2 = string2.attributed.applyStyle(.sum())
 		XCTAssertEqual(result2.string, "12 333,33")
+	}
+
+	func testConvertDates() {
+		let dateTime1 = "2019-11-22 13:33"
+		let dateTime2 = "2019-11-22 13:33"
+
+		let result1 = try! dateTime1.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm")
+		XCTAssertEqual(result1, "1:33")
+
+		let result2 = try! dateTime2.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
+		XCTAssertEqual(result2, "13:33")
+
+		XCTAssertThrowsError(try dateTime1.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm")) { error in
+			XCTAssertEqual(error as! StringifyError, StringifyError.incorrectDate)
+		}
+	}
+
+	func testHasOnlyDigits() {
+		let string1 = "123456"
+		let string2 = "123a56"
+		let string3 = " "
+		let string4 = ""
+
+		XCTAssertTrue(string1.hasOnlyDigits())
+		XCTAssertFalse(string2.hasOnlyDigits())
+		XCTAssertFalse(string3.hasOnlyDigits())
+		XCTAssertFalse(string4.hasOnlyDigits())
 	}
 }

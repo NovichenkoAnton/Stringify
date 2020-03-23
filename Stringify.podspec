@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name          = "Stringify"
-  spec.version       = "1.0"
+  spec.version       = "1.0.1"
   spec.summary       = "A set of usefull string extensions."
   spec.homepage      = "https://github.com/NovichenkoAnton/Stringify"
   
@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
   spec.author        = { "Anton Novichenko" => "novichenko.anton@gmail.com" }
   
   spec.platform      = :ios
-  spec.ios.deployment_target = '11.0'
+  spec.ios.deployment_target = '10.0'
   
   spec.swift_version = ['5.0', '5.1']
   spec.source        = { :git => "https://github.com/NovichenkoAnton/Stringify.git", :tag => "#{spec.version}" }

@@ -78,7 +78,6 @@ iOSInjectionProject/
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
-*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
 # fastlane specific

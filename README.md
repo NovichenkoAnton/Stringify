@@ -8,13 +8,12 @@ A set of useful string extensions
 ## Installation
 
 ```ruby
-pod 'Stringify', '~> 0.1'
+pod 'Stringify', '~> 1.0'
 ```
 
 ## Future plans
 - [ ] Date formatting
 - [ ] Styling `NSMutableAttributedString`s with a range
-- [ ] `StringifyTextField` with text formatting
 
 ## Usage
 
@@ -62,6 +61,14 @@ enum Format {
 "https://www.google.com".validate(with: .website) //true
 ```
 
+6. Simple date formatter (from one format to another)
+
+```swift
+let dateTime = "2019-11-22 13:33"
+
+let resultTime = try! dateTime.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm") //"1:33"
+```
+
 ### NSMutableAttributedString
 1. You can append tho attributed strings with `+`
 
@@ -69,7 +76,7 @@ enum Format {
 let part1 = "123"
 let part2 = "456"
 
-myLable.attributedText = part1.attributed + part2.attributed
+myLabel.attributedText = part1.attributed + part2.attributed
 ```
 
 2. Apply attributes for mutable string
@@ -103,3 +110,48 @@ label.attributedText = sum.attributed.applyStyle(.sum(integerAttrs: [
 ```
 
 <img src="/Screenshots/screenshot1.png" width="200">
+
+
+## StringifyTextField
+
+`StringifyTextField` is a textfield which can format inputed string with 3 available formats.
+
+Available formats:
+```swift
+public enum TextType: UInt {
+  case amount = 0
+  case creditCard = 1
+  case IBAN = 2
+  case none = 3
+}
+```
+
+### Amount format
+
+You can specify currency mark for `.amount` text type
+
+![currency mark](https://user-images.githubusercontent.com/8337067/77302043-bc505e80-6d01-11ea-95c0-1e3af86a8cc0.gif)
+
+Set up maximum integer digits (if your amount contains integer and fraction parts).
+
+```swift
+stringifyTextField.maxIntegerDigits = 6
+```
+
+If your amount doesn't contain a fraction part, you can disable `decimal` through Interface Builder or programmatically.
+
+```swift
+stringifyTextField.decimal = false
+```
+
+### Credit card format
+
+![credit card format](https://user-images.githubusercontent.com/8337067/77302097-d7bb6980-6d01-11ea-87ef-6c64f2f75abe.gif)
+
+You can get "clean" value (without any inner whitespaces) 
+
+```swift
+let cardNumber = stringifyTextField.associatedValue
+```
+
+You can see other features in the example project.

@@ -70,7 +70,7 @@ let resultTime = try! dateTime.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:m
 ```
 
 ### NSMutableAttributedString
-1. You can append tho attributed strings with `+`
+1. You can append two attributed strings with `+`
 
 ```swift
 let part1 = "123"

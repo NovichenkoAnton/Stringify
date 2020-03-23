@@ -112,10 +112,22 @@ label.attributedText = sum.attributed.applyStyle(.sum(integerAttrs: [
 ![screenshot2](https://user-images.githubusercontent.com/8337067/77320368-7dca9c00-6d21-11ea-81fe-3e9162955fa2.png)
 
 
-
-## StringifyTextField
+# StringifyTextField
 
 `StringifyTextField` is a textfield which can format inputed string with 3 available formats.
+
+## Usage
+
+```swift
+import Stringify
+
+//Connect IBOutlet
+@IBOutlet var stringifyTextField: StringifyTextField!
+
+//Create programmatically
+let manualTextField = StringifyTextField(type: .amount)
+manualTextField.frame = CGRect(x: 20, y: 100, width: 200, height: 40)
+```
 
 Available formats:
 ```swift
@@ -154,4 +166,5 @@ You can get "clean" value (without any inner whitespaces)
 let cardNumber = stringifyTextField.associatedValue
 ```
 
+## Demo
 You can see other features in the example project.

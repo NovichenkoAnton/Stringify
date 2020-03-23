@@ -92,7 +92,7 @@ label.attributedText = string.attributed.applyAttributes([
 ])
 ```
 
-<img src="/Screenshots/screenshot2.png" width="200">
+![screenshot1](https://user-images.githubusercontent.com/8337067/77320216-38a66a00-6d21-11ea-8d1c-1ca8bf0bb9a7.png)
 
 3. Apply styles for string
 
@@ -109,7 +109,8 @@ label.attributedText = sum.attributed.applyStyle(.sum(integerAttrs: [
 ], currencyMark: "$"))
 ```
 
-<img src="/Screenshots/screenshot1.png" width="200">
+![screenshot2](https://user-images.githubusercontent.com/8337067/77320368-7dca9c00-6d21-11ea-81fe-3e9162955fa2.png)
+
 
 
 ## StringifyTextField

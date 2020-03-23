@@ -82,8 +82,10 @@ public class StringifyTextField: UITextField {
 	}
 
 	// MARK: - Inits
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
+	public init(type inputType: TextType) {
+		self.textType = inputType
+
+		super.init(frame: .zero)
 
 		configure()
 	}
@@ -98,12 +100,12 @@ public class StringifyTextField: UITextField {
 	public override func awakeFromNib() {
 		super.awakeFromNib()
 
-		delegate = self
-
 		configure()
 	}
 
 	private func configure() {
+		delegate = self
+
 		switch textType {
 		case .amount:
 			numberFormatter.groupingSeparator = " "

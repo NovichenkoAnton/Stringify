@@ -17,6 +17,8 @@ final class ViewController: UIViewController {
 	@IBOutlet var segmentedControl: UISegmentedControl!
 	@IBOutlet var decimalSwitcher: UISwitch!
 
+	private var manualTextField: StringifyTextField!
+
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -41,6 +43,14 @@ final class ViewController: UIViewController {
 		}
 
 		decimalSwitcher.isOn = stringifyTextField.decimal
+
+		let width = UIScreen.main.bounds.size.width - 40
+		let yPosition = valueLabel.frame.maxY + 40
+
+		manualTextField = StringifyTextField(type: .amount)
+		manualTextField.frame = CGRect(x: 20, y: yPosition, width: width, height: 40)
+		manualTextField.borderStyle = .roundedRect
+		view.addSubview(manualTextField)
 	}
 
 	// MARK: - Events

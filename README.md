@@ -122,7 +122,6 @@ public enum TextType: UInt {
   case amount = 0
   case creditCard = 1
   case IBAN = 2
-  case none = 3
 }
 ```
 

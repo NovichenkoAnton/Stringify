@@ -47,7 +47,7 @@ public extension String {
 	}
 
 	/// Returns double value of string,
-	/// if a value is not compatible to `Double` - return 0.00
+	/// if a value is not compatible with `Double` - return 0.00
 	func toDouble() -> Double {
 		var mutatingString = self.trim().components(separatedBy: .whitespaces).joined(separator: "")
 

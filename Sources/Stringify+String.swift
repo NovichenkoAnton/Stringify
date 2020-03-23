@@ -34,7 +34,7 @@ public extension String {
 	}
 
 	/// Pattern for validating string
-	enum Pattern {
+	enum RegExpPattern {
 		case email
 		case phoneBY
 		case website
@@ -102,8 +102,8 @@ public extension String {
 			return CGSize(width: width, height: .zero)
 		}
 
-		let constrantRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-		let boundingBox = self.boundingRect(with: constrantRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
+		let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+		let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
 		return boundingBox.size
 	}
 
@@ -178,7 +178,7 @@ public extension String {
 		- range: `PartialRangeFrom` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
 	- Throws: `StringifyError.outOfUpperIndex`
-			if string length is more than upper bound of range
+			if lower bound of range more than or equal a length of the string
 	- Returns: Masked string
 	*/
 	func maskSubstring(in range: PartialRangeFrom<Int>, with maskSymbol: Character) throws -> String {
@@ -271,7 +271,7 @@ public extension String {
 		- pattern: Prepared `Pattern` for validating
 		- options: The regular expression options that are applied to the expression during matching
 	*/
-	func validate(with pattern: Pattern, for options: NSRegularExpression.Options = [.caseInsensitive]) throws -> Bool {
+	func validate(with pattern: RegExpPattern, for options: NSRegularExpression.Options = [.caseInsensitive]) throws -> Bool {
 		let regularExpression: NSRegularExpression
 		do {
 			regularExpression = try NSRegularExpression(pattern: invokeRegularExpression(for: pattern), options: options)
@@ -288,7 +288,7 @@ public extension String {
 	- Parameter pattern: `Pattern`
 	- Returns: Regular expression
 	*/
-	private func invokeRegularExpression(for pattern: Pattern) -> String {
+	private func invokeRegularExpression(for pattern: RegExpPattern) -> String {
 		switch pattern {
 		case .email:
 			return "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"

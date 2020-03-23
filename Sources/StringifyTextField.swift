@@ -16,7 +16,7 @@ public class StringifyTextField: UITextField {
 	- **creditCard**: formatted text compatible with credit cards, for example, "1234 5678 9012 3456"
 	- **IBAN**: formatted text compatible with IBAN, for example, "BY12 BLBB 1234 5678 0000 1234 5678"
 	*/
-	private enum TextType: UInt {
+	public enum TextType: UInt {
 		case amount = 0
 		case creditCard = 1
 		case IBAN = 2
@@ -25,27 +25,42 @@ public class StringifyTextField: UITextField {
 
 	// MARK: - IBInspectable
 
-	@IBInspectable var textType: UInt {
+	@available(*, unavailable, message: "This property is reserved for Interface Builder. Use 'textType' instead.")
+	@IBInspectable var inputTextType: UInt {
 		get {
-			_textType.rawValue
+			textType.rawValue
 		}
 		set {
-			_textType = StringifyTextField.TextType(rawValue: min(newValue, 3)) ?? .none
+			textType = StringifyTextField.TextType(rawValue: min(newValue, 3)) ?? .none
 		}
 	}
 
 	/// Currency mark for `.sum` type
-	@IBInspectable var currencyMark: String = ""
+	@IBInspectable public var currencyMark: String = ""
 	/// Use decimal separator or not. Only for `.sum` type
-	@IBInspectable var decimal: Bool = true
+	@IBInspectable public var decimal: Bool = true {
+		didSet {
+			configure()
+		}
+	}
 	/// Decimal separator between integer and fraction parts. Only for `.sum` type
-	@IBInspectable var decimalSeparator: String = ","
+	@IBInspectable public var decimalSeparator: String = "," {
+		didSet {
+			configure()
+		}
+	}
 	///Maximum digits for integer part of sum
-	@IBInspectable var maxIntegerDigits: UInt = 10
+	@IBInspectable public var maxIntegerDigits: UInt = 10
+
+	// MARK: - Public properties
+
+	public var textType: TextType = .amount {
+		didSet {
+			configure()
+		}
+	}
 
 	// MARK: - Private properties
-
-	private var _textType: TextType = .amount
 
 	private lazy var numberFormatter = NumberFormatter()
 
@@ -53,7 +68,7 @@ public class StringifyTextField: UITextField {
 
 	///Computed property for getting clean value (without inner whitespaces)
 	public var associatedValue: String {
-		switch _textType {
+		switch textType {
 		case .amount:
 			return cleanValueForSum()
 		case .creditCard:
@@ -63,6 +78,19 @@ public class StringifyTextField: UITextField {
 		default:
 			return text!
 		}
+	}
+
+	// MARK: - Inits
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+
+		configure()
+	}
+
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+
+		configure()
 	}
 
 	// MARK: - Functions
@@ -75,7 +103,7 @@ public class StringifyTextField: UITextField {
 	}
 
 	private func configure() {
-		switch _textType {
+		switch textType {
 		case .amount:
 			numberFormatter.groupingSeparator = " "
 			numberFormatter.numberStyle = .decimal
@@ -109,7 +137,7 @@ public class StringifyTextField: UITextField {
 	}
 
 	public override func closestPosition(to point: CGPoint) -> UITextPosition? {
-		switch _textType {
+		switch textType {
 		case .amount:
 			return position(from: beginningOfDocument, offset: self.text?.count ?? 0)
 		default:
@@ -118,7 +146,7 @@ public class StringifyTextField: UITextField {
 	}
 
 	public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-		switch _textType {
+		switch textType {
 		case .amount:
 			if action == #selector(paste(_:)) || action == #selector(cut(_:)) {
 				return false
@@ -137,7 +165,7 @@ public class StringifyTextField: UITextField {
 
 		pastedString = pastedString.replacingOccurrences(of: " ", with: "")
 
-		switch _textType {
+		switch textType {
 		case .creditCard:
 			if pastedString.hasOnlyDigits(), pastedString.count <= 16 {
 				self.text = pastedString.separate(every: 4, with: " ")
@@ -155,7 +183,7 @@ public class StringifyTextField: UITextField {
 	@objc func textFieldDidBeginEditing() {
 		guard let text = text, !text.isEmpty else { return }
 
-		switch _textType {
+		switch textType {
 		case .amount:
 			applySumFormat()
 		default:
@@ -168,7 +196,7 @@ public class StringifyTextField: UITextField {
 	@objc func textFieldDidEndEditing() {
 		guard let text = text, !text.isEmpty else { return }
 
-		switch _textType {
+		switch textType {
 		case .amount:
 			sumFormatEnding()
 		default:
@@ -291,7 +319,7 @@ private extension StringifyTextField {
 // MARK: - UITextFieldDelegate
 extension StringifyTextField: UITextFieldDelegate {
 	public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		switch _textType {
+		switch textType {
 		case .amount:
 			guard let text = textField.text else { return false }
 

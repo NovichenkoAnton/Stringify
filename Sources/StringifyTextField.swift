@@ -54,6 +54,7 @@ public class StringifyTextField: UITextField {
 
 	// MARK: - Public properties
 
+	/// Specific `TextType` for formatting text in textfield
 	public var textType: TextType = .amount {
 		didSet {
 			configure()
@@ -132,7 +133,6 @@ public class StringifyTextField: UITextField {
 		super.willMove(toSuperview: newSuperview)
 
 		addTarget(self, action: #selector(textFieldDidBeginEditing), for: .editingDidBegin)
-		addTarget(self, action: #selector(textFiledDidEndOnExit), for: .editingDidEndOnExit)
 		addTarget(self, action: #selector(textFieldDidEndEditing), for: .editingDidEnd)
 	}
 
@@ -190,8 +190,6 @@ public class StringifyTextField: UITextField {
 			break
 		}
 	}
-
-	@objc func textFiledDidEndOnExit() {}
 
 	@objc func textFieldDidEndEditing() {
 		guard let text = text, !text.isEmpty else { return }
@@ -289,7 +287,7 @@ private extension StringifyTextField {
 	}
 }
 
-
+// MARK: - Private extension (.creditCard ans .IBAN formats)
 private extension StringifyTextField {
 	func cleanValue() -> String {
 		return self.text!.replacingOccurrences(of: " ", with: "")

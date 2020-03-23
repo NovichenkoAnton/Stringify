@@ -268,7 +268,7 @@ public extension String {
 	/** Validate the string with chosen pattern
 
 	- Parameters:
-		- pattern: Prepared `Pattern` for validating
+		- pattern: Prepared `RegExpPattern` for validating
 		- options: The regular expression options that are applied to the expression during matching
 	*/
 	func validate(with pattern: RegExpPattern, for options: NSRegularExpression.Options = [.caseInsensitive]) throws -> Bool {
@@ -285,7 +285,7 @@ public extension String {
 
 	/** Fetch regular expression for specific pattern
 
-	- Parameter pattern: `Pattern`
+	- Parameter pattern: `RegExpPattern`
 	- Returns: Regular expression
 	*/
 	private func invokeRegularExpression(for pattern: RegExpPattern) -> String {

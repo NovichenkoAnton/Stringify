@@ -35,21 +35,23 @@ public class StringifyTextField: UITextField {
 		}
 	}
 
-	/// Currency mark for `.sum` type
+	/// Currency mark for `.amount` type
 	@IBInspectable public var currencyMark: String = ""
-	/// Use decimal separator or not. Only for `.sum` type
+	/// Use decimal separator or not. Only for `.amount` type
 	@IBInspectable public var decimal: Bool = true {
 		didSet {
-			configure()
+			if textType == .amount {
+				configureDecimalFormat()
+			}
 		}
 	}
-	/// Decimal separator between integer and fraction parts. Only for `.sum` type
+	/// Decimal separator between integer and fraction parts. Only for `.amount` type
 	@IBInspectable public var decimalSeparator: String = "," {
 		didSet {
-			configure()
+			numberFormatter.decimalSeparator = decimalSeparator
 		}
 	}
-	///Maximum digits for integer part of sum
+	///Maximum digits for integer part of amount
 	@IBInspectable public var maxIntegerDigits: UInt = 10
 
 	// MARK: - Public properties
@@ -92,17 +94,15 @@ public class StringifyTextField: UITextField {
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-
-		configure()
 	}
 
-	// MARK: - Functions
 	public override func awakeFromNib() {
 		super.awakeFromNib()
 
 		configure()
 	}
 
+	// MARK: - Functions
 	private func configure() {
 		delegate = self
 
@@ -111,14 +111,7 @@ public class StringifyTextField: UITextField {
 			numberFormatter.groupingSeparator = " "
 			numberFormatter.numberStyle = .decimal
 
-			if decimal {
-				keyboardType = .decimalPad
-
-				numberFormatter.decimalSeparator = decimalSeparator
-				numberFormatter.maximumFractionDigits = 2
-			} else {
-				keyboardType = .numberPad
-			}
+			configureDecimalFormat()
 		case .creditCard:
 			keyboardType = .numberPad
 		case .IBAN:
@@ -128,6 +121,17 @@ public class StringifyTextField: UITextField {
 			returnKeyType = .done
 		case .none:
 			keyboardType = .default
+		}
+	}
+
+	private func configureDecimalFormat() {
+		if decimal {
+			keyboardType = .decimalPad
+
+			numberFormatter.decimalSeparator = decimalSeparator
+			numberFormatter.maximumFractionDigits = 2
+		} else {
+			keyboardType = .numberPad
 		}
 	}
 

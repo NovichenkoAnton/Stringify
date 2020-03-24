@@ -50,6 +50,8 @@ final class ViewController: UIViewController {
 		manualTextField = StringifyTextField(type: .amount)
 		manualTextField.frame = CGRect(x: 20, y: yPosition, width: width, height: 40)
 		manualTextField.borderStyle = .roundedRect
+		manualTextField.decimal = true
+		manualTextField.maxIntegerDigits = 6
 		view.addSubview(manualTextField)
 	}
 

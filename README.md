@@ -5,6 +5,10 @@ A set of useful string extensions
 [![License](https://img.shields.io/cocoapods/l/Stringify)](https://raw.githubusercontent.com/NovichenkoAnton/Stringify/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/Stringify)](https://cocoapods.org/pods/Stringify)
 
+## Requirements
+
+- iOS 10
+
 ## Installation
 
 ```ruby

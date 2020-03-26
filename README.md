@@ -174,7 +174,7 @@ You can specify date format to get needed "clean" value
 stringifyTextField.dateFormat = "MM.yyyy"
 ```
 
-### Clean value
+### "Clean" value
 
 You can get "clean" value from `StringifyTextField`, e.g for `.expDate` format it will be value with applying specific date format.
 

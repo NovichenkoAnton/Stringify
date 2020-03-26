@@ -14,6 +14,7 @@ final class ViewController: UIViewController {
 	@IBOutlet var stringifyTextField: StringifyTextField!
 	@IBOutlet var valueLabel: UILabel!
 	@IBOutlet var currencyTextField: UITextField!
+	@IBOutlet var dateFormatTextField: UITextField!
 	@IBOutlet var segmentedControl: UISegmentedControl!
 	@IBOutlet var decimalSwitcher: UISwitch!
 
@@ -38,21 +39,23 @@ final class ViewController: UIViewController {
 			segmentedControl.selectedSegmentIndex = 1
 		case .IBAN:
 			segmentedControl.selectedSegmentIndex = 2
+		case .expDate:
+			segmentedControl.selectedSegmentIndex = 3
 		default:
 			break
 		}
 
 		decimalSwitcher.isOn = stringifyTextField.decimal
 
-		let width = UIScreen.main.bounds.size.width - 40
-		let yPosition = valueLabel.frame.maxY + 40
-
-		manualTextField = StringifyTextField(type: .amount)
-		manualTextField.frame = CGRect(x: 20, y: yPosition, width: width, height: 40)
-		manualTextField.borderStyle = .roundedRect
-		manualTextField.decimal = true
-		manualTextField.maxIntegerDigits = 6
-		view.addSubview(manualTextField)
+//		let width = UIScreen.main.bounds.size.width - 40
+//		let yPosition = valueLabel.frame.maxY + 40
+//
+//		manualTextField = StringifyTextField(type: .amount)
+//		manualTextField.frame = CGRect(x: 20, y: yPosition, width: width, height: 40)
+//		manualTextField.borderStyle = .roundedRect
+//		manualTextField.decimal = true
+//		manualTextField.maxIntegerDigits = 6
+//		view.addSubview(manualTextField)
 	}
 
 	// MARK: - Events
@@ -66,6 +69,8 @@ final class ViewController: UIViewController {
 			stringifyTextField.textType = .creditCard
 		} else if sender.selectedSegmentIndex == 2 {
 			stringifyTextField.textType = .IBAN
+		} else if sender.selectedSegmentIndex == 3 {
+			stringifyTextField.textType = .expDate
 		}
 	}
 
@@ -88,6 +93,8 @@ extension ViewController: UITextFieldDelegate {
 	func textFieldDidEndEditing(_ textField: UITextField) {
 		if textField == currencyTextField {
 			stringifyTextField.currencyMark = textField.text!.trim()
+		} else if textField == dateFormatTextField {
+			stringifyTextField.dateFormat = textField.text!.trim()
 		}
 	}
 }

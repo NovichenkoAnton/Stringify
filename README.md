@@ -164,10 +164,22 @@ stringifyTextField.decimal = false
 
 ![credit card format](https://user-images.githubusercontent.com/8337067/77302097-d7bb6980-6d01-11ea-87ef-6c64f2f75abe.gif)
 
-You can get "clean" value (without any inner whitespaces) 
+### Exp date format
+
+![exp date format](https://user-images.githubusercontent.com/8337067/77651967-9a174480-6f7e-11ea-947c-de74b8a40804.gif)
+
+You can specify date format to get needed "clean" value
 
 ```swift
-let cardNumber = stringifyTextField.associatedValue
+stringifyTextField.dateFormat = "MM.yyyy"
+```
+
+### Clean value
+
+You can get "clean" value from `StringifyTextField`, e.g for `.expDate` format it will be value with applying specific date format.
+
+```swift
+let expDate = stringifyTextField.associatedValue
 ```
 
 ## Demo

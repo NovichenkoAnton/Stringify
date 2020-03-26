@@ -38,6 +38,8 @@ final class ViewController: UIViewController {
 			segmentedControl.selectedSegmentIndex = 1
 		case .IBAN:
 			segmentedControl.selectedSegmentIndex = 2
+		case .expDate:
+			segmentedControl.selectedSegmentIndex = 3
 		default:
 			break
 		}
@@ -66,6 +68,8 @@ final class ViewController: UIViewController {
 			stringifyTextField.textType = .creditCard
 		} else if sender.selectedSegmentIndex == 2 {
 			stringifyTextField.textType = .IBAN
+		} else if sender.selectedSegmentIndex == 3 {
+			stringifyTextField.textType = .expDate
 		}
 	}
 

@@ -12,15 +12,17 @@ public class StringifyTextField: UITextField {
 	/**
 	Possible text types for `StringifyTextField`
 
-    - **amount**: formatted text with sum type, for example, "1 200,99"
-	- **creditCard**: formatted text compatible with credit cards, for example, "1234 5678 9012 3456"
-	- **IBAN**: formatted text compatible with IBAN, for example, "BY12 BLBB 1234 5678 0000 1234 5678"
+    - **amount**: formatted text with sum type, e.g., "1 200,99"
+	- **creditCard**: formatted text compatible with credit cards, e.g., "1234 5678 9012 3456"
+	- **IBAN**: formatted text compatible with IBAN, e.g., "BY12 BLBB 1234 5678 0000 1234 5678"
+	- **expDate**: expired date of credit cards, e.g., "03/22"
 	*/
 	public enum TextType: UInt {
 		case amount = 0
 		case creditCard = 1
 		case IBAN = 2
-		case none = 3
+		case expDate = 3
+		case none = 4
 	}
 
 	// MARK: - IBInspectable
@@ -31,7 +33,7 @@ public class StringifyTextField: UITextField {
 			textType.rawValue
 		}
 		set {
-			textType = StringifyTextField.TextType(rawValue: min(newValue, 3)) ?? .none
+			textType = StringifyTextField.TextType(rawValue: min(newValue, 4)) ?? .none
 		}
 	}
 
@@ -78,6 +80,8 @@ public class StringifyTextField: UITextField {
 			return cleanValue()
 		case .IBAN:
 			return cleanValue().uppercased()
+		case .expDate:
+			return expDateCleanValue()
 		default:
 			return text!
 		}
@@ -94,10 +98,6 @@ public class StringifyTextField: UITextField {
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-	}
-
-	public override func awakeFromNib() {
-		super.awakeFromNib()
 
 		configure()
 	}
@@ -112,7 +112,7 @@ public class StringifyTextField: UITextField {
 			numberFormatter.numberStyle = .decimal
 
 			configureDecimalFormat()
-		case .creditCard:
+		case .creditCard, .expDate:
 			keyboardType = .numberPad
 		case .IBAN:
 			keyboardType = .asciiCapable
@@ -135,13 +135,6 @@ public class StringifyTextField: UITextField {
 		}
 	}
 
-	public override func willMove(toSuperview newSuperview: UIView?) {
-		super.willMove(toSuperview: newSuperview)
-
-		addTarget(self, action: #selector(textFieldDidBeginEditing), for: .editingDidBegin)
-		addTarget(self, action: #selector(textFieldDidEndEditing), for: .editingDidEnd)
-	}
-
 	public override func closestPosition(to point: CGPoint) -> UITextPosition? {
 		switch textType {
 		case .amount:
@@ -153,7 +146,7 @@ public class StringifyTextField: UITextField {
 
 	public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
 		switch textType {
-		case .amount:
+		case .amount, .expDate:
 			if action == #selector(paste(_:)) || action == #selector(cut(_:)) {
 				return false
 			}
@@ -165,7 +158,6 @@ public class StringifyTextField: UITextField {
 
 	public override func paste(_ sender: Any?) {
 		guard UIPasteboard.general.hasStrings, var pastedString = UIPasteboard.general.string else {
-			super.paste(sender)
 			return
 		}
 
@@ -182,29 +174,6 @@ public class StringifyTextField: UITextField {
 			}
 		default:
 			super.paste(sender)
-		}
-	}
-
-	// MARK: - Events
-	@objc func textFieldDidBeginEditing() {
-		guard let text = text, !text.isEmpty else { return }
-
-		switch textType {
-		case .amount:
-			applySumFormat()
-		default:
-			break
-		}
-	}
-
-	@objc func textFieldDidEndEditing() {
-		guard let text = text, !text.isEmpty else { return }
-
-		switch textType {
-		case .amount:
-			sumFormatEnding()
-		default:
-			break
 		}
 	}
 }
@@ -293,10 +262,10 @@ private extension StringifyTextField {
 	}
 }
 
-// MARK: - Private extension (.creditCard ans .IBAN formats)
+// MARK: - Private extension (.creditCard, .IBAN formats)
 private extension StringifyTextField {
 	func cleanValue() -> String {
-		return self.text!.replacingOccurrences(of: " ", with: "")
+		self.text!.replacingOccurrences(of: " ", with: "").trim()
 	}
 
 	func shouldChangeText(in range: NSRange, with string: String, and text: String, with maxLength: Int) -> Bool {
@@ -320,24 +289,73 @@ private extension StringifyTextField {
 	}
 }
 
+// MARK: - Private extension (.expDate format)
+private extension StringifyTextField {
+	func expDateCleanValue() -> String {
+		self.text!.replacingOccurrences(of: "/", with: "").trim()
+	}
+
+	func shouldChangeExpDate(in range: NSRange, with string: String, and text: String) -> Bool {
+		if string.isEmpty {
+			return true
+		}
+
+		let cursorLocation = position(from: beginningOfDocument, offset: (range.location + NSString(string: string).length))
+
+		let possibleText = (text as NSString).replacingCharacters(in: range, with: string)
+
+		if possibleText.count == 2 {
+			self.text = possibleText + "/"
+		} else if possibleText.count <= 5 {
+			self.text = possibleText.replacingOccurrences(of: "/", with: "").separate(every: 2, with: "/")
+		}
+
+		if let location = cursorLocation {
+			selectedTextRange = textRange(from: location, to: location)
+		}
+
+		return false
+	}
+}
+
 // MARK: - UITextFieldDelegate
 extension StringifyTextField: UITextFieldDelegate {
-	public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+	public func textFieldDidBeginEditing(_ textField: UITextField) {
+		guard let text = textField.text, !text.isEmpty else { return }
+
 		switch textType {
 		case .amount:
-			guard let text = textField.text else { return false }
+			applySumFormat()
+		default:
+			break
+		}
+	}
 
+	public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		guard let text = textField.text else { return false }
+
+		switch textType {
+		case .amount:
 			return shouldChangeSumText(in: range, with: string, and: text)
 		case .creditCard:
-			guard let text = textField.text else { return false }
-
 			return shouldChangeText(in: range, with: string, and: text, with: 19)
 		case .IBAN:
-			guard let text = textField.text else { return false }
-
 			return shouldChangeText(in: range, with: string, and: text, with: 42)
+		case .expDate:
+			return shouldChangeExpDate(in: range, with: string, and: text)
 		default:
 			return true
+		}
+	}
+
+	public func textFieldDidEndEditing(_ textField: UITextField) {
+		guard let text = textField.text, !text.isEmpty else { return }
+
+		switch textType {
+		case .amount:
+			sumFormatEnding()
+		default:
+			break
 		}
 	}
 

@@ -37,9 +37,16 @@ public class StringifyTextField: UITextField {
 		}
 	}
 
-	/// Currency mark for `.amount` type
+	/// Currency mark for `.amount` type.
+	/// Default value is an empty string.
 	@IBInspectable public var currencyMark: String = ""
-	/// Use decimal separator or not. Only for `.amount` type
+
+	/// Maximum digits for integer part of amount.
+	/// Default value is 10.
+	@IBInspectable public var maxIntegerDigits: UInt = 10
+
+	/// Use decimal separator or not. Only for `.amount` type.
+	/// Default value is `true`.
 	@IBInspectable public var decimal: Bool = true {
 		didSet {
 			if textType == .amount {
@@ -47,18 +54,23 @@ public class StringifyTextField: UITextField {
 			}
 		}
 	}
-	/// Decimal separator between integer and fraction parts. Only for `.amount` type
+
+	/// Decimal separator between integer and fraction parts. Only for `.amount` type.
+	/// Default value is `,`(comma).
 	@IBInspectable public var decimalSeparator: String = "," {
 		didSet {
 			numberFormatter.decimalSeparator = decimalSeparator
 		}
 	}
-	///Maximum digits for integer part of amount
-	@IBInspectable public var maxIntegerDigits: UInt = 10
+
+	/// Date format for getting exp date from `associatedValue` property.
+	/// Default value is "MMyy".
+	@IBInspectable public var dateFormat: String = "MMyy"
 
 	// MARK: - Public properties
 
-	/// Specific `TextType` for formatting text in textfield
+	/// Specific `TextType` for formatting text in textfield.
+	/// Default value is `.amount`.
 	public var textType: TextType = .amount {
 		didSet {
 			configure()
@@ -292,7 +304,13 @@ private extension StringifyTextField {
 // MARK: - Private extension (.expDate format)
 private extension StringifyTextField {
 	func expDateCleanValue() -> String {
-		self.text!.replacingOccurrences(of: "/", with: "").trim()
+		guard let text = self.text else { return "" }
+
+		do {
+			return try text.st.convertDate(from: "MM/yy", to: dateFormat)
+		} catch {
+			return ""
+		}
 	}
 
 	func shouldChangeExpDate(in range: NSRange, with string: String, and text: String) -> Bool {

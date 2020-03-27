@@ -15,10 +15,6 @@ A set of useful string extensions
 pod 'Stringify', '~> 1.0'
 ```
 
-## Future plans
-- [ ] Date formatting
-- [ ] Styling `NSMutableAttributedString`s with a range
-
 ## Usage
 
 ### String
@@ -118,7 +114,7 @@ label.attributedText = sum.attributed.applyStyle(.sum(integerAttrs: [
 
 # StringifyTextField
 
-`StringifyTextField` is a textfield which can format inputed string with 3 available formats.
+`StringifyTextField` is a textfield which can format inputed string with 4 available formats.
 
 ## Usage
 
@@ -139,6 +135,7 @@ public enum TextType: UInt {
   case amount = 0
   case creditCard = 1
   case IBAN = 2
+  case expDate = 3
 }
 ```
 

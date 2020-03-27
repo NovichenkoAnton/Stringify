@@ -1,5 +1,5 @@
 # Stringify
-A set of useful string extensions
+A set of useful string extensions.
 
 [![Version](https://img.shields.io/cocoapods/v/Stringify)](https://cocoapods.org/pods/Stringify)
 [![License](https://img.shields.io/cocoapods/l/Stringify)](https://raw.githubusercontent.com/NovichenkoAnton/Stringify/master/LICENSE)
@@ -7,12 +7,29 @@ A set of useful string extensions
 
 ## Requirements
 
-- iOS 10
+- iOS 10.0+
+- Swift 5+
 
 ## Installation
 
+### CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Stringify into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
 ```ruby
 pod 'Stringify', '~> 1.0'
+```
+
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
+
+Once you have your Swift package set up, adding Stringify as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+    .package(url: "https://https://github.com/NovichenkoAnton/Stringify.git", .upToNextMajor(from: "1.0.0"))
+]
 ```
 
 ## Usage

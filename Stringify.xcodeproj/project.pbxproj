@@ -15,7 +15,6 @@
 		1A88095524220B5000B4F9BC /* Stringify.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A88094F24220B5000B4F9BC /* Stringify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */; };
 		1A8809632422591700B4F9BC /* StringifyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8809622422591700B4F9BC /* StringifyTextField.swift */; };
-		48D214FD242DEB7D00780886 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D214FC242DEB7D00780886 /* Package.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,7 +229,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48D214FD242DEB7D00780886 /* Package.swift in Sources */,
 				1A8809632422591700B4F9BC /* StringifyTextField.swift in Sources */,
 				1A88095224220B5000B4F9BC /* Stringify.swift in Sources */,
 				1A88095324220B5000B4F9BC /* Luhn.swift in Sources */,

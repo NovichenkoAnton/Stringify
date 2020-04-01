@@ -14,7 +14,7 @@ A set of useful string extensions.
 
 ### CocoaPods
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Stringify into your Xcode project using CocoaPods, specify it in your `Podfile`:
+Stringify is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'Stringify', '~> 1.0'

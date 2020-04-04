@@ -188,13 +188,33 @@ You can specify date format to get needed "clean" value
 stringifyTextField.dateFormat = "MM.yyyy"
 ```
 
-### "Clean" value
+### Plain value
 
-You can get "clean" value from `StringifyTextField`, e.g for `.expDate` format it will be value with applying specific date format.
+You can get plain value from `StringifyTextField`, e.g for `.expDate` format it will be value with applying specific date format.
 
 ```swift
-let expDate = stringifyTextField.associatedValue
+let expDate = stringifyTextField.plainValue
 ```
+
+### Bottom line & floated placeholder
+
+You can add bottom line dispay in `StringifyTextField`
+
+```swift
+stringifyTextField.lineVisible = true
+stringifyTextField.lineColorDefault = UIColor.black
+stringifyTextField.lineColorActive = UIColor.blue
+```
+
+and floated label display
+
+```swift
+stringifyTextField.floatingPlaceholder = true
+stringifyTextField.floatingPlaceholderColor = UIColor.black
+stringifyTextField.floatingPlaceholderActiveColor = UIColor.blue
+```
+
+![bottom line and floated label](https://user-images.githubusercontent.com/8337067/78424011-3faf6f80-7673-11ea-993d-3c449fa4420c.gif)
 
 ## Demo
 You can see other features in the example project.

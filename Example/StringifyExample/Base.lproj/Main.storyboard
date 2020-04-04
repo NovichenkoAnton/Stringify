@@ -115,6 +115,38 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="4w7-ot-xGq"/>
                                 </connections>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gwS-G6-oma" customClass="StringifyTextField" customModule="Stringify">
+                                <rect key="frame" x="20" y="595" width="374" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="r9A-Ct-QK8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="inputTextType">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="decimal" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="decimalSeparator" value=","/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxIntegerDigits">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="lineVisible" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColorDefault">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColorActive">
+                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="floatingPlaceholder" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="floatingPlaceholderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="floatingPlaceholderActiveColor">
+                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -131,10 +163,12 @@
                             <constraint firstItem="yHh-Xg-hq8" firstAttribute="trailing" secondItem="AYs-xQ-GVZ" secondAttribute="trailing" id="DGb-s4-3MF"/>
                             <constraint firstItem="quH-ey-WIO" firstAttribute="centerY" secondItem="rA2-Nz-LKi" secondAttribute="centerY" id="HGO-gX-DLG"/>
                             <constraint firstItem="LDP-rH-tmI" firstAttribute="leading" secondItem="rA2-Nz-LKi" secondAttribute="leading" id="ITV-uY-VfW"/>
+                            <constraint firstItem="gwS-G6-oma" firstAttribute="leading" secondItem="LDP-rH-tmI" secondAttribute="leading" id="J71-Sm-oPt"/>
                             <constraint firstItem="4e2-gO-waW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="L03-Pj-Y6a"/>
                             <constraint firstItem="Dsh-k3-sVX" firstAttribute="trailing" secondItem="4e2-gO-waW" secondAttribute="trailing" id="N2y-nQ-euw"/>
                             <constraint firstItem="Zn7-BU-V90" firstAttribute="leading" secondItem="Dsh-k3-sVX" secondAttribute="leading" id="NkH-U2-PQP"/>
                             <constraint firstItem="xWh-XJ-Zgl" firstAttribute="centerY" secondItem="0XE-1Y-BNF" secondAttribute="centerY" id="PcN-PP-gg7"/>
+                            <constraint firstItem="gwS-G6-oma" firstAttribute="top" secondItem="LDP-rH-tmI" secondAttribute="bottom" constant="24" id="SPc-KG-lsd"/>
                             <constraint firstItem="Dsh-k3-sVX" firstAttribute="leading" secondItem="4e2-gO-waW" secondAttribute="leading" id="aBN-Lr-ARs"/>
                             <constraint firstItem="rA2-Nz-LKi" firstAttribute="top" secondItem="nrf-kn-q50" secondAttribute="bottom" constant="32" id="b98-bj-lDe"/>
                             <constraint firstItem="nrf-kn-q50" firstAttribute="top" secondItem="c2I-Qp-Q0Z" secondAttribute="bottom" constant="10" id="cP2-gR-4db"/>
@@ -143,6 +177,7 @@
                             <constraint firstItem="c2I-Qp-Q0Z" firstAttribute="trailing" secondItem="Zn7-BU-V90" secondAttribute="trailing" id="fVM-W8-cxy"/>
                             <constraint firstItem="Zn7-BU-V90" firstAttribute="trailing" secondItem="Dsh-k3-sVX" secondAttribute="trailing" id="fZq-pg-5E2"/>
                             <constraint firstItem="AYs-xQ-GVZ" firstAttribute="leading" secondItem="rA2-Nz-LKi" secondAttribute="leading" id="gIG-GX-Rgr"/>
+                            <constraint firstItem="gwS-G6-oma" firstAttribute="trailing" secondItem="LDP-rH-tmI" secondAttribute="trailing" id="hbq-W7-ZNR"/>
                             <constraint firstItem="quH-ey-WIO" firstAttribute="width" secondItem="rA2-Nz-LKi" secondAttribute="width" id="ify-i3-VPJ"/>
                             <constraint firstItem="yHh-Xg-hq8" firstAttribute="leading" secondItem="AYs-xQ-GVZ" secondAttribute="leading" id="lDP-9x-sof"/>
                             <constraint firstItem="nrf-kn-q50" firstAttribute="leading" secondItem="c2I-Qp-Q0Z" secondAttribute="leading" id="nAV-7n-HeN"/>

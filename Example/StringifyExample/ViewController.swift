@@ -75,7 +75,7 @@ final class ViewController: UIViewController {
 	}
 
 	@IBAction func getTextFieldValue(_ sender: Any) {
-		valueLabel.text = "Textfield value is:\n\(stringifyTextField.associatedValue)"
+		valueLabel.text = "Textfield value is:\n\(stringifyTextField.plainValue)"
 	}
 
 

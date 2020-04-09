@@ -30,7 +30,7 @@ lane :release do |options|
 	)
 
 	git_commit(
-		path: podspec
+		path: podspec,
 		message: "Update #{podspec}"
 	)
 

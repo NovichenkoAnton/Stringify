@@ -31,7 +31,8 @@ lane :release do |options|
 
 	git_commit(
 		path: podspec,
-		message: "Update #{podspec}"
+		message: "Update #{podspec}",
+		allow_nothing_to_commit: true
 	)
 
 	sh("git tag '#{build_version}'")

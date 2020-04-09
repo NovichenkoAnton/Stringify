@@ -8,6 +8,16 @@
 
 import UIKit
 
+@objc public protocol StringifyTextFieldDelegate: AnyObject {
+	/// Called when editing is begin
+	/// - Parameter textField: `StringifyTextField`
+	func didBeginEditing(_ textField: StringifyTextField)
+
+	/// Called when editing is end
+	/// - Parameter textField: `StringifyTextField`
+	func didEndEditing(_ textField: StringifyTextField)
+}
+
 public class StringifyTextField: UITextField {
 	/**
 	Possible text types for `StringifyTextField`
@@ -125,6 +135,8 @@ public class StringifyTextField: UITextField {
 			configure()
 		}
 	}
+
+	@IBOutlet public weak var stDelegate: StringifyTextFieldDelegate?
 
 	// MARK: - Private properties
 
@@ -569,6 +581,8 @@ private extension StringifyTextField {
 // MARK: - UITextFieldDelegate
 extension StringifyTextField: UITextFieldDelegate {
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
+		stDelegate?.didBeginEditing(self)
+
 		if lineVisible {
 			activateBottomLine()
 		}
@@ -601,6 +615,8 @@ extension StringifyTextField: UITextFieldDelegate {
 	}
 
 	public func textFieldDidEndEditing(_ textField: UITextField) {
+		stDelegate?.didEndEditing(self)
+
 		if lineVisible {
 			deactivateBottomLine()
 		}

@@ -14,7 +14,6 @@
 		1A88095424220B5000B4F9BC /* Stringify+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88094E24220B5000B4F9BC /* Stringify+String.swift */; };
 		1A88095524220B5000B4F9BC /* Stringify.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A88094F24220B5000B4F9BC /* Stringify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */; };
-		1A8809632422591700B4F9BC /* StringifyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8809622422591700B4F9BC /* StringifyTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +37,6 @@
 		1A88094F24220B5000B4F9BC /* Stringify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stringify.h; sourceTree = "<group>"; };
 		1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stringify+NSAttributedString.swift"; sourceTree = "<group>"; };
 		1A88095124220B5000B4F9BC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A8809622422591700B4F9BC /* StringifyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringifyTextField.swift; sourceTree = "<group>"; };
 		48D214FC242DEB7D00780886 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,21 +100,12 @@
 		1A88095824220B5D00B4F9BC /* Stringify */ = {
 			isa = PBXGroup;
 			children = (
-				1A880961242258FE00B4F9BC /* StringifyTextField */,
 				1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */,
 				1A88094E24220B5000B4F9BC /* Stringify+String.swift */,
 				1A88094D24220B5000B4F9BC /* Luhn.swift */,
 				1A88094C24220B5000B4F9BC /* Stringify.swift */,
 			);
 			name = Stringify;
-			sourceTree = "<group>";
-		};
-		1A880961242258FE00B4F9BC /* StringifyTextField */ = {
-			isa = PBXGroup;
-			children = (
-				1A8809622422591700B4F9BC /* StringifyTextField.swift */,
-			);
-			name = StringifyTextField;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,7 +218,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A8809632422591700B4F9BC /* StringifyTextField.swift in Sources */,
 				1A88095224220B5000B4F9BC /* Stringify.swift in Sources */,
 				1A88095324220B5000B4F9BC /* Luhn.swift in Sources */,
 				1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */,
@@ -395,7 +383,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = by.Stringify;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -426,7 +414,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = by.Stringify;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

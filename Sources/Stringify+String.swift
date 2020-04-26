@@ -10,20 +10,6 @@ import UIKit
 
 extension String: StringifyCompatible {}
 
-/** Used for error handling
-
- - **outOfUpperIndex**: throws in `maskSubstring()` functions if your string has incorrect length for masking
- - **invalidCard**: throws in `validateCreditCard()` function if your string didn't pass through Luhn algorithm
- - **incorrectPattern**: throws in `validate()` function if your own pattern is not compatible with `NSRegularExpression`
- - **incorrectDate**: throws in `convertDate()` function if input date incompatible with input date format
-*/
-public enum StringifyError: Swift.Error, LocalizedError {
-	case outOfUpperIndex
-	case invalidCard
-	case incorrectPattern
-	case incorrectDate
-}
-
 public extension String {
 	/// String formats
 	enum Format {
@@ -109,23 +95,18 @@ public extension String {
 
 	/** Mask substring in `CountableRange` with specific character
 
-		do {
-		  let string = "abcdefg".maskSubstring(in: 5..<7, with: "*")
+		if let string = "abcdefg".maskSubstring(in: 5..<7, with: "*") {
 		  print(string) //"abcde**"
-		} catch {
-		  print(error.localizedDescription)
 		}
 
 	- Parameters:
 		- range: `CountableRange` for substring changes
 		- maskSymbol: Symbol which masks substring in range
-	- Throws: `StringifyError.outOfUpperIndex`
-			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
-	func maskSubstring(in range: CountableRange<Int>, with maskSymbol: Character) throws -> String {
+	func maskSubstring(in range: CountableRange<Int>, with maskSymbol: Character) -> String? {
 		guard range.upperBound <= self.count else {
-			throw StringifyError.outOfUpperIndex
+			return nil
 		}
 
 		let maskString = String(repeating: maskSymbol, count: range.upperBound - range.lowerBound)
@@ -138,23 +119,18 @@ public extension String {
 
 	/** Mask substring in `ClosedRange` with specific character
 
-		do {
-		  let string = "abcdefg".maskSubstring(in: 5...6, with: "*")
+		if let string = "abcdefg".maskSubstring(in: 5...6, with: "*") {
 		  print(string) //"abcde**"
-		} catch {
-		  print(error.localizedDescription)
 		}
 
 	- Parameters:
 		- range: `ClosedRange` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `StringifyError.outOfUpperIndex`
-			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
-	func maskSubstring(in range: ClosedRange<Int>, with maskSymbol: Character) throws -> String {
+	func maskSubstring(in range: ClosedRange<Int>, with maskSymbol: Character) -> String? {
 		guard range.upperBound < self.count else {
-			throw StringifyError.outOfUpperIndex
+			return nil
 		}
 
 		let maskString = String(repeating: maskSymbol, count: (range.upperBound - range.lowerBound) + 1)
@@ -167,23 +143,18 @@ public extension String {
 
 	/** Mask substring in `PartialRangeFrom` with specific character
 
-		do {
-		  let string = "abcdefg".maskSubstring(in: 5..., with: "*")
+		if let string = "abcdefg".maskSubstring(in: 5..., with: "*") {
 		  print(string) //"abcde**"
-		} catch {
-		  print(error.localizedDescription)
 		}
 
 	- Parameters:
 		- range: `PartialRangeFrom` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `StringifyError.outOfUpperIndex`
-			if lower bound of range more than or equal a length of the string
 	- Returns: Masked string
 	*/
-	func maskSubstring(in range: PartialRangeFrom<Int>, with maskSymbol: Character) throws -> String {
+	func maskSubstring(in range: PartialRangeFrom<Int>, with maskSymbol: Character) -> String? {
 		guard range.lowerBound < self.count else {
-			throw StringifyError.outOfUpperIndex
+			return nil
 		}
 
 		let maskString = String(repeating: maskSymbol, count: self.count - range.lowerBound)
@@ -195,23 +166,18 @@ public extension String {
 
 	/** Mask substring in `PartialRangeThrough` with specific character
 
-		do {
-		  let string = "abcdefg".maskSubstring(in: ...2, with: "*")
+		if let string = "abcdefg".maskSubstring(in: ...2, with: "*") {
 		  print(string) //"***defg"
-		} catch {
-		  print(error.localizedDescription)
 		}
 
 	- Parameters:
 		- range: `PartialRangeThrough` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `StringifyError.outOfUpperIndex`
-			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
-	func maskSubstring(in range: PartialRangeThrough<Int>, with maskSymbol: Character) throws -> String {
+	func maskSubstring(in range: PartialRangeThrough<Int>, with maskSymbol: Character) -> String? {
 		guard range.upperBound < self.count else {
-			throw StringifyError.outOfUpperIndex
+			return nil
 		}
 
 		let maskString = String(repeating: maskSymbol, count: range.upperBound + 1)
@@ -223,23 +189,18 @@ public extension String {
 
 	/** Mask substring in `PartialRangeUpTo` with specific character
 
-		do {
-		  let string = "abcdefg".maskSubstring(in: ..<2, with: "*")
+		if let string = "abcdefg".maskSubstring(in: ..<2, with: "*") {
 		  print(string) //"**cdefg"
-		} catch {
-		  print(error.localizedDescription)
 		}
 
 	- Parameters:
 		- range: `PartialRangeUpTo` for substring changes
 		- maskSymbol: Symbol which masks a substring in range
-	- Throws: `StringifyError.outOfUpperIndex`
-			if string length is more than upper bound of range
 	- Returns: Masked string
 	*/
-	func maskSubstring(in range: PartialRangeUpTo<Int>, with maskSymbol: Character) throws -> String {
+	func maskSubstring(in range: PartialRangeUpTo<Int>, with maskSymbol: Character) -> String? {
 		guard range.upperBound <= self.count else {
-			throw StringifyError.outOfUpperIndex
+			return nil
 		}
 
 		let maskString = String(repeating: maskSymbol, count: range.upperBound)
@@ -255,14 +216,78 @@ public extension String {
 			if card didn't pass through Luhn algorithm
 	- Returns: `true` if card is valid
 	*/
-	func validateCreditCard() throws -> Bool {
+	func validateCreditCard() -> Bool {
 		let preparedString = self.trim().components(separatedBy: .whitespaces).joined(separator: "")
 
-		guard luhnAlgorithm(preparedString) else {
-			throw StringifyError.invalidCard
-		}
+		guard luhnAlgorithm(preparedString) else { return false }
 
 		return true
+	}
+
+	/** Returns `Dictionary` of queryItems from the string (if it compatible with `URL`). It works for URLs with cyrillic domain name.
+
+		if let queryItems = "https://test.com?foo=1&bar=abc".queryItems() {
+		  print(queryItems) //["foo": "1", "bar": "abc"]
+		}
+
+	- Returns: `Dictionary` of query items
+	*/
+	func queryItems() -> [String: String]? {
+		guard let scheme = matches(with: "(https|http)://").first else {
+			return nil
+		}
+
+		guard let host = self.replacingOccurrences(of: scheme, with: "").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+			return nil
+		}
+
+		guard let components = URLComponents(string: host) else {
+			return nil
+		}
+
+		var items: [String: String] = [:]
+
+		components.queryItems?.forEach {
+			items[$0.name] = $0.value
+		}
+
+		return items
+	}
+
+	/** Finds matches inside string by regular expression
+
+	- Parameters:
+	  - regex: Regular expression
+	  - options: The regular expression options that are applied to the expression during matching
+	- Returns: Arrat of matches in the string
+	*/
+	func matches(with regex: String, for options: NSRegularExpression.Options = [.caseInsensitive]) -> [String] {
+		let regularExpression: NSRegularExpression
+		do {
+			regularExpression = try NSRegularExpression(pattern: regex, options: options)
+		} catch {
+			return []
+		}
+
+		let range = NSRange(location: 0, length: self.utf16.count)
+		let results = regularExpression.matches(in: self, range: range)
+
+		return results.compactMap {
+			self.substring(with: $0.range)
+		}
+	}
+
+	/** Returns substring (type `String`) in `NSRange`
+
+	- Parameter nsRange: NSRange
+	- Returns: The string inside `NSRange`
+	*/
+	func substring(with nsRange: NSRange) -> String? {
+		guard let range = Range(nsRange, in: self) else {
+			return nil
+		}
+
+		return String(self[range])
 	}
 
 	/** Validate the string with chosen pattern
@@ -271,12 +296,12 @@ public extension String {
 		- pattern: Prepared `RegExpPattern` for validating
 		- options: The regular expression options that are applied to the expression during matching
 	*/
-	func validate(with pattern: RegExpPattern, for options: NSRegularExpression.Options = [.caseInsensitive]) throws -> Bool {
+	func validate(with pattern: RegExpPattern, for options: NSRegularExpression.Options = [.caseInsensitive]) -> Bool {
 		let regularExpression: NSRegularExpression
 		do {
 			regularExpression = try NSRegularExpression(pattern: invokeRegularExpression(for: pattern), options: options)
 		} catch {
-			throw StringifyError.incorrectPattern
+			return false
 		}
 
 		let range = NSRange(location: 0, length: self.utf16.count)
@@ -357,18 +382,16 @@ public extension Stringify where Base == String {
 	- Parameters:
 		- fromFormat: Input date format
 		- toFormat: Result date format
-	- Throws: `StringifyError.incorrectDate`
-		input date incompatible with input date format
 	- Returns: Converted string with result format
 	*/
-	func convertDate(from fromFormat: String, to toFormat: String) throws -> String {
+	func convertDate(from fromFormat: String, to toFormat: String) -> String? {
 		dateFormatter.dateFormat = fromFormat
 
 		let tmpDate = dateFormatter.date(from: self.st)
 		dateFormatter.dateFormat = toFormat
 
 		guard let date = tmpDate else {
-			throw StringifyError.incorrectDate
+			return nil
 		}
 
 		return dateFormatter.string(from: date)

@@ -39,8 +39,8 @@ dependencies: [
 
 ```swift
 let cardNumber = "1234567890123456"
-let masked = try! cardNumber.maskSubstring(in: 6...13, with: "*")
-print(masked) //"123456********56"
+let masked = cardNumber.maskSubstring(in: 6...13, with: "*")
+print(masked!) //"123456********56"
 ```
 
 2. Convert `String` to `Double`. If `String` is not compatible with `Double` the function will return 0.00.
@@ -83,7 +83,15 @@ enum Format {
 ```swift
 let dateTime = "2019-11-22 13:33"
 
-let resultTime = try! dateTime.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm") //"1:33"
+let resultTime = dateTime.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm") //"1:33"
+```
+
+7. Get query items from `String` that corresponds to `URL` type. Works for URLs with cyrillic domain names.
+
+```swift
+let stringURL = "https://test.com?foo=1&bar=abc"
+
+let queryItems = stringURL.queryItems()! //["foo": "1", "bar": "abc"]
 ```
 
 ### NSMutableAttributedString

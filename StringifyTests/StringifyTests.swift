@@ -151,14 +151,12 @@ final class StringifyTests: XCTestCase {
 		let string2 = "79927398713"
 		let string3 = "5578 8549 6021 0681"
 
-		XCTAssertThrowsError(try string1.validateCreditCard()) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.invalidCard)
-		}
+		XCTAssertFalse(string1.validateCreditCard())
 
-		let result2 = try! string2.validateCreditCard()
+		let result2 = string2.validateCreditCard()
 		XCTAssertTrue(result2)
 
-		let result3 = try! string3.validateCreditCard()
+		let result3 = string3.validateCreditCard()
 		XCTAssertTrue(result3)
 	}
 
@@ -256,62 +254,48 @@ final class StringifyTests: XCTestCase {
 
 	func testMaksSubstring() {
 		let string1 = "abcdefg"
-		let string2 = "1234567890123456"
-
-		let cardResult = try! string2.maskSubstring(in: 6...13, with: "*")
-		print(cardResult)
 
 		//CountabeRange
-		XCTAssertThrowsError(try string1.maskSubstring(in: 1..<10, with: "*")) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.outOfUpperIndex)
-		}
+		XCTAssertNil(string1.maskSubstring(in: 1..<10, with: "*"))
 
-		let result2 = try! string1.maskSubstring(in: 5..<7, with: "*")
+		let result2 = string1.maskSubstring(in: 5..<7, with: "*")
 		XCTAssertEqual(result2, "abcde**")
 
 		//ClosedRange
-		XCTAssertThrowsError(try string1.maskSubstring(in: 5...7, with: "*")) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.outOfUpperIndex)
-		}
+		XCTAssertNil(string1.maskSubstring(in: 5...7, with: "*"))
 
-		let result3 = try! string1.maskSubstring(in: 5...6, with: "*")
+		let result3 = string1.maskSubstring(in: 5...6, with: "*")
 		XCTAssertEqual(result3, "abcde**")
 
 		//PartialRangeFrom
-		let result4 = try! string1.maskSubstring(in: 5..., with: "*")
+		let result4 = string1.maskSubstring(in: 5..., with: "*")
 		XCTAssertEqual(result4, "abcde**")
 
-		let result5 = try! string1.maskSubstring(in: 6..., with: "*")
+		let result5 = string1.maskSubstring(in: 6..., with: "*")
 		XCTAssertEqual(result5, "abcdef*")
 
-		XCTAssertThrowsError(try string1.maskSubstring(in: 7..., with: "*")) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.outOfUpperIndex)
-		}
+		XCTAssertNil(string1.maskSubstring(in: 7..., with: "*"))
 
 		//PartialRangeThrough
-		let result6 = try! string1.maskSubstring(in: ...2, with: "*")
+		let result6 = string1.maskSubstring(in: ...2, with: "*")
 		XCTAssertEqual(result6, "***defg")
 
-		let result7 = try! string1.maskSubstring(in: ...6, with: "*")
+		let result7 = string1.maskSubstring(in: ...6, with: "*")
 		XCTAssertEqual(result7, "*******")
 
-		XCTAssertThrowsError(try string1.maskSubstring(in: ...7, with: "*")) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.outOfUpperIndex)
-		}
+		XCTAssertNil(string1.maskSubstring(in: ...7, with: "*"))
 
 		//PartialRangeUpTo
-		let result8 = try! string1.maskSubstring(in: ..<2, with: "*")
+		let result8 = string1.maskSubstring(in: ..<2, with: "*")
 		XCTAssertEqual(result8, "**cdefg")
 
-		let result9 = try! string1.maskSubstring(in: ..<6, with: "*")
+		let result9 = string1.maskSubstring(in: ..<6, with: "*")
 		XCTAssertEqual(result9, "******g")
 
-		let result10 = try! string1.maskSubstring(in: ..<7, with: "*")
+		let result10 = string1.maskSubstring(in: ..<7, with: "*")
 		XCTAssertEqual(result10, "*******")
 
-		XCTAssertThrowsError(try string1.maskSubstring(in: ..<8, with: "*")) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.outOfUpperIndex)
-		}
+		XCTAssertNil(string1.maskSubstring(in: ..<8, with: "*"))
 	}
 
 	func testValidate() {
@@ -325,28 +309,28 @@ final class StringifyTests: XCTestCase {
 		let string7 = "googlecom"
 		let string8 = "123abc"
 
-		let result1 = try! string1.validate(with: .phoneBY)
+		let result1 = string1.validate(with: .phoneBY)
 		XCTAssertTrue(result1)
 
-		let result2 = try! string2.validate(with: .phoneBY)
+		let result2 = string2.validate(with: .phoneBY)
 		XCTAssertFalse(result2)
 
-		let result3 = try! string3.validate(with: .email)
+		let result3 = string3.validate(with: .email)
 		XCTAssertTrue(result3)
 
-		let result4 = try! string4.validate(with: .website)
+		let result4 = string4.validate(with: .website)
 		XCTAssertTrue(result4)
 
-		let result5 = try! string5.validate(with: .website)
+		let result5 = string5.validate(with: .website)
 		XCTAssertTrue(result5)
 
-		let result6 = try! string6.validate(with: .website)
+		let result6 = string6.validate(with: .website)
 		XCTAssertTrue(result6)
 
-		let result7 = try! string7.validate(with: .website)
+		let result7 = string7.validate(with: .website)
 		XCTAssertFalse(result7)
 
-		let result8 = try! string8.validate(with: .own(pattern: ownPattern))
+		let result8 = string8.validate(with: .own(pattern: ownPattern))
 		XCTAssertTrue(result8)
 	}
 
@@ -403,15 +387,13 @@ final class StringifyTests: XCTestCase {
 		let dateTime1 = "2019-11-22 13:33"
 		let dateTime2 = "2019-11-22 13:33"
 
-		let result1 = try! dateTime1.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm")
+		let result1 = dateTime1.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm")
 		XCTAssertEqual(result1, "1:33")
 
-		let result2 = try! dateTime2.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
+		let result2 = dateTime2.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
 		XCTAssertEqual(result2, "13:33")
 
-		XCTAssertThrowsError(try dateTime1.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm")) { error in
-			XCTAssertEqual(error as! StringifyError, StringifyError.incorrectDate)
-		}
+		XCTAssertNil(dateTime1.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm"))
 	}
 
 	func testHasOnlyDigits() {
@@ -424,5 +406,35 @@ final class StringifyTests: XCTestCase {
 		XCTAssertFalse(string2.hasOnlyDigits())
 		XCTAssertFalse(string3.hasOnlyDigits())
 		XCTAssertFalse(string4.hasOnlyDigits())
+	}
+
+	func testQueryItems() {
+		let url1 = "https://test.com?foo=1&bar=abc"
+		let url2 = "https://test.com"
+		let url3 = "https://абв.бел?foo=2"
+		let url4 = "https://абв.бел/город?foo=3"
+		let url5 = "https://test.com/город?foo=4"
+
+		if let queryItems1 = url1.queryItems() {
+			print(queryItems1)
+			XCTAssertEqual(queryItems1["foo"], "1")
+			XCTAssertEqual(queryItems1["bar"], "abc")
+		}
+
+		if let queryItems2 = url2.queryItems() {
+			XCTAssertTrue(queryItems2.isEmpty)
+		}
+
+		if let queryItems3 = url3.queryItems() {
+			XCTAssertEqual(queryItems3["foo"], "2")
+		}
+
+		if let queryItems4 = url4.queryItems() {
+			XCTAssertEqual(queryItems4["foo"], "3")
+		}
+
+		if let queryItems5 = url5.queryItems() {
+			XCTAssertEqual(queryItems5["foo"], "4")
+		}
 	}
 }

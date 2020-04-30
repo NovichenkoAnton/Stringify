@@ -414,9 +414,9 @@ final class StringifyTests: XCTestCase {
 		let url3 = "https://абв.бел?foo=2"
 		let url4 = "https://абв.бел/город?foo=3"
 		let url5 = "https://test.com/город?foo=4"
+		let url6 = "https://test.com?foo=%D0%B0%D0%B1%D0%B2"
 
 		if let queryItems1 = url1.queryItems() {
-			print(queryItems1)
 			XCTAssertEqual(queryItems1["foo"], "1")
 			XCTAssertEqual(queryItems1["bar"], "abc")
 		}
@@ -435,6 +435,10 @@ final class StringifyTests: XCTestCase {
 
 		if let queryItems5 = url5.queryItems() {
 			XCTAssertEqual(queryItems5["foo"], "4")
+		}
+
+		if let quertyItems6 = url6.queryItems() {
+			XCTAssertEqual(quertyItems6["foo"], "абв")
 		}
 	}
 }

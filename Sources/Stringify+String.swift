@@ -248,7 +248,7 @@ public extension String {
 		var items: [String: String] = [:]
 
 		components.queryItems?.forEach {
-			items[$0.name] = $0.value
+			items[$0.name] = $0.value?.removingPercentEncoding
 		}
 
 		return items

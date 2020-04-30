@@ -19,6 +19,11 @@ xcodeproj = 'Stringify.xcodeproj'
 target = 'Stringify'
 
 lane :release do |options|
+	pod_lib_lint(
+		podspec: podspec,
+		allow_warnings: true
+	)
+
 	build_version = get_version_number(
 		xcodeproj: xcodeproj,
 		target: target

@@ -32,6 +32,11 @@ public extension String {
 		NSMutableAttributedString(string: self)
 	}
 
+	/// Computed property which returns `Data` fron the string with `utf8` encoding
+	var data: Data {
+		self.data(using: .utf8).orEmpty
+	}
+
 	/// Returns double value of string,
 	/// if a value is not compatible with `Double` - return 0.00
 	func toDouble() -> Double {

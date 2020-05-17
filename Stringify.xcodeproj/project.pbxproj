@@ -14,6 +14,7 @@
 		1A88095424220B5000B4F9BC /* Stringify+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88094E24220B5000B4F9BC /* Stringify+String.swift */; };
 		1A88095524220B5000B4F9BC /* Stringify.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A88094F24220B5000B4F9BC /* Stringify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */; };
+		1ADAF727247166FC00171B4C /* Stringify+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADAF726247166FC00171B4C /* Stringify+Optional.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		1A88094F24220B5000B4F9BC /* Stringify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stringify.h; sourceTree = "<group>"; };
 		1A88095024220B5000B4F9BC /* Stringify+NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stringify+NSAttributedString.swift"; sourceTree = "<group>"; };
 		1A88095124220B5000B4F9BC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1ADAF726247166FC00171B4C /* Stringify+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stringify+Optional.swift"; sourceTree = "<group>"; };
 		48D214FC242DEB7D00780886 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 				1A88094E24220B5000B4F9BC /* Stringify+String.swift */,
 				1A88094D24220B5000B4F9BC /* Luhn.swift */,
 				1A88094C24220B5000B4F9BC /* Stringify.swift */,
+				1ADAF726247166FC00171B4C /* Stringify+Optional.swift */,
 			);
 			name = Stringify;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A88095224220B5000B4F9BC /* Stringify.swift in Sources */,
+				1ADAF727247166FC00171B4C /* Stringify+Optional.swift in Sources */,
 				1A88095324220B5000B4F9BC /* Luhn.swift in Sources */,
 				1A88095624220B5000B4F9BC /* Stringify+NSAttributedString.swift in Sources */,
 				1A88095424220B5000B4F9BC /* Stringify+String.swift in Sources */,
@@ -383,7 +387,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = by.Stringify;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -414,7 +418,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = by.Stringify;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

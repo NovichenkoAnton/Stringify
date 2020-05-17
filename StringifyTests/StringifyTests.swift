@@ -441,4 +441,24 @@ final class StringifyTests: XCTestCase {
 			XCTAssertEqual(quertyItems6["foo"], "абв")
 		}
 	}
+
+	func testOptionalString() {
+		let string1: String? = nil
+		let string2: String? = "abc"
+
+		XCTAssertEqual(string1.isBlank, true)
+		XCTAssertEqual(string1.orEmpty, "")
+		XCTAssertEqual(string2.isBlank, false)
+		XCTAssertEqual(string2.orEmpty, "abc")
+	}
+
+	func testData() {
+		let string1 = "abc"
+		let string2: String? = nil
+		let string3 = "абв"
+
+		XCTAssertEqual(string1.data.count, 3)
+		XCTAssertEqual(string2.orEmpty.data, Data())
+		XCTAssertEqual(string3.data.count, 6)
+	}
 }

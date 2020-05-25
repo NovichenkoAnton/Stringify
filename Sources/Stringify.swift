@@ -36,6 +36,7 @@ public class Stringify<Base> {
 		let dateFormatter = DateFormatter()
 		dateFormatter.calendar = Calendar(identifier: .iso8601)
 		dateFormatter.timeZone = TimeZone.current
+		dateFormatter.locale = Locale.current
 		return dateFormatter
 	}()
 }

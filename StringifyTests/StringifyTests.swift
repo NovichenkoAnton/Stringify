@@ -386,12 +386,16 @@ final class StringifyTests: XCTestCase {
 	func testConvertDates() {
 		let dateTime1 = "2019-11-22 13:33"
 		let dateTime2 = "2019-11-22 13:33"
+		let dateTime3 = "2020-05-20"
 
 		let result1 = dateTime1.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "h:mm")
 		XCTAssertEqual(result1, "1:33")
 
 		let result2 = dateTime2.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
 		XCTAssertEqual(result2, "13:33")
+
+		let result3 = dateTime3.st.convertDate(from: "yyyy-MM-dd", to: "LLL yyyy")
+		XCTAssertEqual(result3, "май 2020")
 
 		XCTAssertNil(dateTime1.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm"))
 	}

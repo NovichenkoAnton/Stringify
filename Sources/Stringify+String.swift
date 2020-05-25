@@ -389,8 +389,9 @@ public extension Stringify where Base == String {
 		- toFormat: Result date format
 	- Returns: Converted string with result format
 	*/
-	func convertDate(from fromFormat: String, to toFormat: String) -> String? {
+	func convertDate(from fromFormat: String, to toFormat: String, locale: Locale = Locale.current) -> String? {
 		dateFormatter.dateFormat = fromFormat
+		dateFormatter.locale = locale
 
 		let tmpDate = dateFormatter.date(from: self.st)
 		dateFormatter.dateFormat = toFormat

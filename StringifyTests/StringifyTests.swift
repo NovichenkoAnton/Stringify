@@ -394,7 +394,7 @@ final class StringifyTests: XCTestCase {
 		let result2 = dateTime2.st.convertDate(from: "yyyy-MM-dd HH:mm", to: "HH:mm")
 		XCTAssertEqual(result2, "13:33")
 
-		let result3 = dateTime3.st.convertDate(from: "yyyy-MM-dd", to: "LLL yyyy")
+		let result3 = dateTime3.st.convertDate(from: "yyyy-MM-dd", to: "LLL yyyy", locale: Locale(identifier: "ru_BY"))
 		XCTAssertEqual(result3, "май 2020")
 
 		XCTAssertNil(dateTime1.st.convertDate(from: "yyyy-MM-dd", to: "HH:mm"))

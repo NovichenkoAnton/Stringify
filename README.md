@@ -56,7 +56,7 @@ print(anotherAmount.toDouble()) //1200.1
 3. You can apply specific format for strings
 ```swift
 let sum = "1234"
-let formattedSum = sum.st.applyFormat(.sum())
+let formattedSum = sum.st.applyFormat(.sum)
 print(formattedSum) //"1 234,00"
 ```
 

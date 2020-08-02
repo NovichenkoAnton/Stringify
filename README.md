@@ -72,7 +72,7 @@ enum Format {
 
 4. Validate a number of credit card by Luhn algorithm.
 
-5. Validate you string with specific pattern
+5. Validate the string with specific pattern
 
 ```swift
 "https://www.google.com".validate(with: .website) //true

@@ -28,7 +28,7 @@ Once you have your Swift package set up, adding Stringify as a dependency is as 
 
 ```swift
 dependencies: [
-    .package(url: "https://https://github.com/NovichenkoAnton/Stringify.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/NovichenkoAnton/Stringify.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
@@ -56,7 +56,7 @@ print(anotherAmount.toDouble()) //1200.1
 3. You can apply specific format for strings
 ```swift
 let sum = "1234"
-let formattedSum = sum.st.applyFormat(.sum())
+let formattedSum = sum.st.applyFormat(.sum)
 print(formattedSum) //"1 234,00"
 ```
 
@@ -72,7 +72,7 @@ enum Format {
 
 4. Validate a number of credit card by Luhn algorithm.
 
-5. Validate you string with specific pattern
+5. Validate the string with specific pattern
 
 ```swift
 "https://www.google.com".validate(with: .website) //true

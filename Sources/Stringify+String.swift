@@ -13,7 +13,7 @@ extension String: StringifyCompatible {}
 public extension String {
 	/// String formats
 	enum Format {
-		case sum(fractionDigits: Int = 2)
+		case sum(minFractionDigits: Int = 2, maxFractionDigits: Int = 2)
 		case creditCard
 		case iban
 		case custom(formatter: NumberFormatter)
@@ -336,8 +336,8 @@ public extension String {
 public extension Stringify where Base == String {
 	/** Returns new string which was made by applying `Format`.
 
-		// .triad
-		let string = "1234".st.applyFormat(.triad)
+		// .sum
+		let string = "1234".st.applyFormat(.sum())
 		print(string) //"1 234,00"
 
 		//.creditCard
@@ -352,8 +352,8 @@ public extension Stringify where Base == String {
 	*/
 	func applyFormat(_ format: Base.Format) -> String {
 		switch format {
-		case let .sum(fractionDidigts):
-			return triadString(self.st, fractionDigits: fractionDidigts)
+		case let .sum(minFractionDidigts, maxFractionDigits):
+			return triadString(self.st, minFractionDigits: minFractionDidigts, maxFractionDigits: maxFractionDigits)
 		case .creditCard:
 			return creditCardString(self.st)
 		case .iban:
@@ -374,8 +374,8 @@ public extension Stringify where Base == String {
 	- Parameter fractionDigits: Number of fraction digits after seaprator. Default value is 2
 	- Returns: Formatted string without inner whitespaces and with '.' separator.
 	*/
-	func clean(fractionDigits: Int = 2) -> String {
-		let formattedString = triadString(self.st, fractionDigits: fractionDigits)
+	func clean(minFractionDigist: Int = 2, maxFractionDigits: Int = 2) -> String {
+		let formattedString = triadString(self.st, minFractionDigits: minFractionDigist, maxFractionDigits: maxFractionDigits)
 		return formattedString.trim().components(separatedBy: .whitespaces).joined(separator: "").replacingOccurrences(of: ",", with: ".")
 	}
 
@@ -412,9 +412,12 @@ private extension Stringify where Base == String {
 
 	/// Make triad format for string, i.e. from "1234" it makes "1 234"
 	/// - Parameter string: String for formatting
-	func triadString(_ string: String, fractionDigits: Int) -> String {
-		triadNumberFormatter.minimumFractionDigits = fractionDigits
-		triadNumberFormatter.maximumFractionDigits = fractionDigits
+	/// - Parameter minFractionDigits: minimum number of digits in a fraction
+	/// - Parameter maxFractionDigits: maximum number of digits in a fraction
+	/// - Returns: Formatted string
+	func triadString(_ string: String, minFractionDigits: Int, maxFractionDigits: Int) -> String {
+		triadNumberFormatter.minimumFractionDigits = minFractionDigits
+		triadNumberFormatter.maximumFractionDigits = maxFractionDigits
 		return triadNumberFormatter.string(from: NSNumber(value: string.toDouble())) ?? Stringify.defaultValue
 	}
 

@@ -71,6 +71,7 @@ final class StringifyTests: XCTestCase {
 		let string8 = "0"
 		let string9 = ""
 		let string10 = "1234,5499999999"
+		let string11 = "11,5"
 
 		let result1 = string1.st.applyFormat(.sum())
 		XCTAssertEqual(result1, "1 234,00")
@@ -99,11 +100,14 @@ final class StringifyTests: XCTestCase {
 		let result9 = string9.st.applyFormat(.sum())
 		XCTAssertEqual(result9, "0,00")
 
-		let result11 = string9.st.applyFormat(.sum(fractionDigits: 0))
-		XCTAssertEqual(result11, "0")
-
 		let result10 = string10.st.applyFormat(.sum())
 		XCTAssertEqual(result10, "1 234,55")
+
+		let result11 = string9.st.applyFormat(.sum(minFractionDigits: 0, maxFractionDigits: 2))
+		XCTAssertEqual(result11, "0")
+
+		let result12 = string11.st.applyFormat(.sum(minFractionDigits: 0, maxFractionDigits: 2))
+		XCTAssertEqual(result12, "11,5")
 	}
 
 	func testSeparate() {

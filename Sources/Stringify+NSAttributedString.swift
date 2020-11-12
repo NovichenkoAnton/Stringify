@@ -151,3 +151,52 @@ private extension NSMutableAttributedString {
 		",".attributed
 	}
 }
+
+// MARK: - NSAttributedString + HTML
+
+public extension NSAttributedString {
+	/// Render HTML string and returns styled NSAttributedString
+	/// - Parameter htmlString: String with HTML tags
+	convenience init?(htmlString: String) {
+		guard let data = htmlString.data(using: .utf16) else { return nil }
+
+		let options: [DocumentReadingOptionKey : Any] = [
+			.documentType: NSAttributedString.DocumentType.html,
+			.characterEncoding: String.Encoding.utf8.rawValue
+		]
+
+		guard let string = try? NSMutableAttributedString(
+				data: data,
+				options: options,
+				documentAttributes: nil) else { return nil }
+
+		self.init(attributedString: string)
+	}
+
+	/// Render HTML string and return styled NSAttributedString
+	/// - Parameters:
+	///   - htmlString: String with HTML tags
+	///   - fontSize: Font size
+	///   - foregroundColor: Foregroung color
+	convenience init?(htmlString: String, fontSize: CGFloat, foregroundColor: UIColor) {
+		let htmlTemplate = """
+			<!doctype html>
+			<html>
+			  <head>
+				<style>
+				  body {
+					font-family: -apple-system;
+					font-size: "\(fontSize)"px;
+					color: \(foregroundColor.hexString);
+				  }
+				</style>
+			  </head>
+			  <body>
+				\(htmlString)
+			  </body>
+			</html>
+		"""
+
+		self.init(htmlString: htmlTemplate)
+	}
+}

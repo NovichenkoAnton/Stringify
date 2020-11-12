@@ -469,4 +469,14 @@ final class StringifyTests: XCTestCase {
 		XCTAssertEqual(string2.orEmpty.data, Data())
 		XCTAssertEqual(string3.data.count, 6)
 	}
+
+	func testHTMLString() {
+		let string1 = "<b>123123</b>"
+		let string2 = "123123"
+
+		XCTAssertNotNil(NSAttributedString(htmlString: string1))
+		XCTAssertNotNil(NSAttributedString(htmlString: string1, fontSize: 18, foregroundColor: UIColor.black))
+		XCTAssertNotNil(NSAttributedString(htmlString: string2))
+		XCTAssertNotNil(NSAttributedString(htmlString: string2, fontSize: 18, foregroundColor: UIColor.black))
+	}
 }

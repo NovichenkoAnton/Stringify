@@ -63,7 +63,7 @@ print(formattedSum) //"1 234,00"
 Supported formats
 ```swift
 enum Format {
-  case sum(minFractionDigist: Int = 2)
+  case sum(minFractionDigits: Int = 2, maxFractionDigits: Int = 2)
   case creditCard
   case iban
   case custom(formatter: NumberFormatter)

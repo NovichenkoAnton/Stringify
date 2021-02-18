@@ -42,6 +42,7 @@ public extension NSMutableAttributedString {
 		case crossed(width: Int, color: UIColor = UIColor.black)
 		case underline(style: NSUnderlineStyle = NSUnderlineStyle.single, color: UIColor = UIColor.black)
 		case url(url: String)
+		case paragraphStyle(paragraphStyle: () -> NSMutableParagraphStyle)
 		case own(attrs: [NSAttributedString.Key : Any] = [:])
 	}
 
@@ -76,6 +77,8 @@ public extension NSMutableAttributedString {
 				if let link = NSURL(string: url) {
 					self.addAttribute(.link, value: link, range: range)
 				}
+			case let .paragraphStyle(paragraphStyle):
+				self.addAttribute(.paragraphStyle, value: paragraphStyle(), range: range)
 			case let .own(attrs):
 				self.addAttributes(attrs, range: range)
 			}

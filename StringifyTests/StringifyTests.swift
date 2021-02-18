@@ -479,4 +479,22 @@ final class StringifyTests: XCTestCase {
 		XCTAssertNotNil(NSAttributedString(htmlString: string2))
 		XCTAssertNotNil(NSAttributedString(htmlString: string2, fontSize: 18, foregroundColor: UIColor.black))
 	}
+
+	func testParagraphStyle() {
+		let string1 = "123123"
+			.attributed
+			.applyAttributes(
+				[
+					.paragraphStyle(paragraphStyle: {
+						let paragrapshStyle = NSMutableParagraphStyle()
+						paragrapshStyle.lineHeightMultiple = 0.5
+						return paragrapshStyle
+					})
+				]
+			)
+
+		XCTAssertNotNil(string1.attributes(at: 0, effectiveRange: nil).contains(where: {
+			$0.key == .paragraphStyle
+		}))
+	}
 }

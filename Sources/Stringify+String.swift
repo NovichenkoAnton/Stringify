@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Contacts
 
 extension String: StringifyCompatible {}
 
@@ -32,9 +33,14 @@ public extension String {
 		NSMutableAttributedString(string: self)
 	}
 
-	/// Computed property which returns `Data` fron the string with `utf8` encoding
+	/// Computed property which returns `Data` from the string with `utf8` encoding
 	var data: Data {
 		self.data(using: .utf8).orEmpty
+	}
+
+	/// Computed property which return digits from the string
+	var digits: String {
+		self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
 	}
 
 	/// Returns double value of string,
@@ -229,6 +235,20 @@ public extension String {
 		return true
 	}
 
+	/** Check the string for the presence of data of the VCard format
+
+	- Returns: `true` if the string contains VCard data
+	*/
+	func hasVCardData() -> Bool {
+		guard let vcardData = data(using: .utf16) else { return false }
+
+		do {
+			return try !CNContactVCardSerialization.contacts(with: vcardData).isEmpty
+		} catch {
+			return false
+		}
+	}
+
 	/** Returns `Dictionary` of queryItems from the string (if it compatible with `URL`). It works for URLs with cyrillic domain name.
 
 		if let queryItems = "https://test.com?foo=1&bar=abc".queryItems() {
@@ -363,7 +383,7 @@ public extension Stringify where Base == String {
 		}
 	}
 
-	/** Remove whitespaces and new lines from both ends, remove whitepsaces inside the string and replace `decimalSeparator`from `,` to `.` using inner `NumberFormatter`. This string suitable as a parameter for network requests e.g. money fields.
+	/** Remove whitespaces and new lines from both ends, remove whitepsaces inside the string and replace `decimalSeparator` from `,` to `.` using inner `NumberFormatter`. This string suitable as a parameter for network requests e.g. money fields.
 
 		let string = "1 234,56".st.clean()
 		print(string) //"1234.56"

@@ -497,4 +497,26 @@ final class StringifyTests: XCTestCase {
 			$0.key == .paragraphStyle
 		}))
 	}
+
+	func testDigits() {
+		let string1 = "abcd123n4"
+
+		XCTAssertEqual(string1.digits, "1234")
+	}
+
+	func testVCardFormat() {
+		let string =
+			"""
+			BEGIN:VCARD
+			VERSION:3.0
+			FN:к.м.н., пр. Кожокарь Денис Григорьевич
+			N:Пупкин;Василий;Иванович;пр.,к.м.н.
+			ORG:Рога и Копыта
+			URL:http://ru.wikipedia.org/Денис_Кожокарь
+			EMAIL;TYPE=INTERNET:Denis.Kojokar@example.com
+			END:VCARD
+			"""
+
+		XCTAssertTrue(string.hasVCardData())
+	}
 }

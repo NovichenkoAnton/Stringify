@@ -18,7 +18,7 @@ podspec = './Stringify.podspec'
 xcodeproj = 'Stringify.xcodeproj'
 target = 'Stringify'
 
-lane :release do |options|
+lane :release do
 	pod_lib_lint(
 		podspec: podspec,
 		allow_warnings: true

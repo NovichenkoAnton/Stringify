@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name          = "Stringify"
-  spec.version       = "1.0.17"
+  spec.version       = "1.0.18"
   spec.summary       = "A set of usefull string extensions."
   spec.homepage      = "https://github.com/NovichenkoAnton/Stringify"
   

@@ -44,7 +44,9 @@ lane :release do
 		tag: "#{build_version}"
 	)
 
-	push_git_tags
+	push_git_tags(
+		remote: "Stringify"
+	)
 
 	pod_push(
 		path: podspec,

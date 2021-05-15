@@ -40,8 +40,11 @@ lane :release do
 		allow_nothing_to_commit: true
 	)
 
-	sh("git tag '#{build_version}'")
-	sh("git push --tags")
+	add_git_tag(
+		tag: "#{build_version}"
+	)
+
+	push_git_tags
 
 	pod_push(
 		path: podspec,

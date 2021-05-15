@@ -391,12 +391,25 @@ public extension Stringify where Base == String {
 		let anotherString = "1 234".st.clean()
 		print(anotherString) //"1234.00"
 
-	- Parameter fractionDigits: Number of fraction digits after seaprator. Default value is 2
-	- Returns: Formatted string without inner whitespaces and with '.' separator.
+	- Parameters:
+		- minFractionDigits: Min number of fraction digits after separator. Default value is 2
+		- maxFractionDigits: Max number of fraction digits after separator. Default value is 2
+		- groupingSeparator: Separator between digits in an integer part. Default value is " "
+		- decimalSeparator: Separator between an integer part and a fraction part. Default value is `,`.
+
+	- Returns: Formatted string without inner grouping separatorss and with decimal separator (.).
 	*/
-	func clean(minFractionDigist: Int = 2, maxFractionDigits: Int = 2) -> String {
-		let formattedString = triadString(self.st, minFractionDigits: minFractionDigist, maxFractionDigits: maxFractionDigits)
-		return formattedString.trim().components(separatedBy: .whitespaces).joined(separator: "").replacingOccurrences(of: ",", with: ".")
+	func clean(minFractionDigits: Int = 2, maxFractionDigits: Int = 2, groupingSeparator: String = " ", decimalSeparator: String = ",") -> String {
+		cleanNumberFormatter.minimumFractionDigits = minFractionDigits
+		cleanNumberFormatter.maximumFractionDigits = maxFractionDigits
+
+		let formatted = self.st
+			.trim()
+			.components(separatedBy: groupingSeparator)
+			.joined()
+			.replacingOccurrences(of: decimalSeparator, with: ".")
+			.toDouble()
+		return cleanNumberFormatter.string(from: NSNumber(value: formatted)) ?? String(Double.zero)
 	}
 
 	/** Convert string between date formats

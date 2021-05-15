@@ -217,7 +217,7 @@ final class StringifyTests: XCTestCase {
 		XCTAssertEqual(result9, "0")
 	}
 
-	func textClean() {
+	func testClean() {
 		let string1 = "1234"
 		let string2 = "1 234"
 		let string3 = "1 234,56"
@@ -227,11 +227,12 @@ final class StringifyTests: XCTestCase {
 		let string7 = "test text"
 		let string8 = "0"
 		let string9 = ""
+		let string10 = "1.222.123_2222"
 
-		let result1 = string1.st.clean()
+		let result1 = string1.st.clean(minFractionDigits: 0)
 		XCTAssertEqual(result1, "1234")
 
-		let result2 = string2.st.clean()
+		let result2 = string2.st.clean(minFractionDigits: 0)
 		XCTAssertEqual(result2, "1234")
 
 		let result3 = string3.st.clean()
@@ -254,6 +255,9 @@ final class StringifyTests: XCTestCase {
 
 		let result9 = string9.st.clean()
 		XCTAssertEqual(result9, "0.00")
+
+		let result10 = string10.st.clean(minFractionDigits: 0, maxFractionDigits: 4, groupingSeparator: ".", decimalSeparator: "_")
+		XCTAssertEqual(result10, "1222123.2222")
 	}
 
 	func testMaksSubstring() {

@@ -32,6 +32,14 @@ public class Stringify<Base> {
 		return formatter
 	}()
 
+	lazy var cleanNumberFormatter: NumberFormatter = {
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		formatter.decimalSeparator = "."
+		formatter.groupingSeparator = ""
+		return formatter
+	}()
+
 	lazy var dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.calendar = Calendar(identifier: .iso8601)

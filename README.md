@@ -1,5 +1,4 @@
-# The project moved to: 
-# https://github.com/NovichenkoAnton/Extendy
+# The project moved to: https://github.com/NovichenkoAnton/Extendy
 
 # Stringify
 A set of useful string extensions.
